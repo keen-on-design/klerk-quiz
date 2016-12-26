@@ -1,0 +1,234 @@
+section.staff#staff.offset-bottom
+	.container
+		.row
+			.col-md-8.offset-md-2.advantage
+				h2.strong Наши преподаватели – выступающие артисты
+				p Все преподаватели – профессиональные артисты с музыкальным и театральным образованием, опытом педагогической практики и постоянной сценической деятельности.
+	.container
+		.row
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-mirozhabova(href="#mirozhabova")
+							img.no-scroll(src="images/staff/Karina-Mirozhabova.jpg")
+					h3.strong Карина Мирожабова
+					span.job Вокал
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-shubin(href="#shubin")
+							img.no-scroll(src="images/staff/Vladimir-Shubin.jpg")
+					h3.strong Владимир Шубин
+					span.job Клавишные
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-gorjachkin(href="#gorjachkin")
+							img.no-scroll(src="images/staff/Mihail-Gorjachkin.jpg")
+					h3.strong Михаил Горячкин
+					span.job Ударные
+		.row
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-muradova(href="#muradova")
+							img.no-scroll(src="images/staff/Lejla-Muradova.jpg")
+					h3.strong Лейла Мурадова
+					span.job Вокал
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-smirnov(href="#smirnov")
+							img.no-scroll(src="images/staff/Nikolaj-Smirnov.jpg")
+					h3.strong Николай Смирнов
+					span.job Гитара
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-severina(href="#severina")
+							img.no-scroll(src="images/staff/Tamara-Severina.jpg")
+					h3.strong Тамара Северина
+					span.job Теория музыки
+		.row
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-kurt(href="#kurt")
+							img.no-scroll(src="images/staff/Jana-Kurt.jpg")
+					h3.strong Яна Курт
+					span.job Вокал
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-malahov(href="#malahov")
+							img.no-scroll(src="images/staff/Artur-Malahov.jpg")
+					h3.strong Артур Малахов
+					span.job Ударные
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-blokhin(href="#blokhin")
+							img.no-scroll(src="images/staff/Aleksandr-Blohin.jpg")
+					h3.strong Александр Блохин
+					span.job Гитара
+		.row
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-radul(href="#radul")
+							img.no-scroll(src="images/staff/Anastasija-Radul.jpg")
+					h3.strong Анастасия Радул
+					span.job Сценическое мастерство
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-chepelev(href="#chepelev")
+							img.no-scroll(src="images/staff/Aleksandr-Chepelev.jpg")
+					h3.strong Александр Чепелев
+					span.job Бас-гитара / контрабас
+			.col-md-4
+				.staff__person
+					.person__image
+						a.no-scroll#modal-bushina(href="#bushina")
+							img.no-scroll(src="images/staff/Ekaterina-Bushina.jpg")
+					h3.strong Екатерина Бушина
+					span.job Сценическое мастерство
+.modal#blokhin
+	+modalClose('blokhin')
+	.modal-content
+		.container
+			+staffModalHeader('Александр Блохин','Гитара')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#chepelev
+	+modalClose('chepelev')
+	.modal-content
+		.container
+			+staffModalHeader('Александр Чепелев','Бас-гитара / контрабас')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#radul
+	+modalClose('radul')
+	.modal-content
+		.container
+			+staffModalHeader('Анастасия Радул','Сценическое мастерство')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#malahov
+	+modalClose('malahov')
+	.modal-content
+		.container
+			+staffModalHeader('Артур Малахов','Ударные')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#bushina
+	+modalClose('bushina')
+	.modal-content
+		.container
+			+staffModalHeader('Екатерина Бушина','Сценическое мастерство')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#kurt
+	+modalClose('kurt')
+	.modal-content
+		.container
+			+staffModalHeader('Яна Курт','Вокал')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#mirozhabova
+	+modalClose('mirozhabova')
+	.modal-content
+		.container
+			+staffModalHeader('Карина Мирожабова','Вокал')
+			.row
+				.col-md-4
+					h3.strong Образование
+					p Окончила музыкальную школу по классу фортепиано, Набережночелнинский педагогический колледж, отделение - музыкальный руководитель. Получает высшее образование в Краснодарском государственном университете культуры и искусств, кафедра эстрадно-джазовое пение.
+				.col-md-4
+					h3.strong Музыкальная деятельность
+					p До 15 лет состояла в образцово-показательном составе фольклорного ансамбля "Солнцеворот". Сотрудничала с эстрадными и народными коллективами Астраханской области и республики Татарстан. В настоящий момент участвует в нескольких кавер-проектах Краснодара, выступает сольно.
+			.row
+				.col-md-12
+					hr
+			.row
+				.col-md-4
+					h3.strong Педагогический опыт
+					p 2009 - 2012 год - занималась со студентами музыкального и иностранного факультета Набережночелнинского педагогического колледжа. В 2014 году преподавала общее фортепиано и эстрадно-джазовый вокал студентам Краснодарского государственного университета культуры и искусств.
+				.col-md-4
+					h3.strong Достижения
+					p Призер Республиканских и Международных конкурсов в России и в Европе. 2012 Чехия (город Прага) , 2013 Эстония (город Таллин) , 2014 Италия (город Рим).
+			.row
+				.col-md-12
+					hr
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Карина Мирожабова","","","Записаться")
+
+.modal#muradova
+	+modalClose('muradova')
+	.modal-content
+		.container
+			+staffModalHeader('Лейла Мурадова','Вокал')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#gorjachkin
+	+modalClose('gorjachkin')
+	.modal-content
+		.container
+			+staffModalHeader('Михаил Горячкин','Ударные')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#smirnov
+	+modalClose('smirnov')
+	.modal-content
+		.container
+			+staffModalHeader('Николай Смирнов','Гитара')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#severina
+	+modalClose('severina')
+	.modal-content
+		.container
+			+staffModalHeader('Тамара Северина','Теория музыки')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")
+
+.modal#shubin
+	+modalClose('shubin')
+	.modal-content
+		.container
+			+staffModalHeader('Владимир Шубин','Клавишные')
+			.row
+				.col-md-8
+					h2 Хотите записаться к этому преподавателю?
+					+ctaForm("Александр Блохин","","","Записаться")

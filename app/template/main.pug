@@ -1,0 +1,10 @@
+include _common/_mixins
+doctype html
+html
+	include _common/_head
+	body
+		block content
+		// build:js js/plugins.main.min.js
+		script(src='../../bower_components/jquery/dist/jquery.js')
+		// endbuild
+		script(src='js/app.min.js')

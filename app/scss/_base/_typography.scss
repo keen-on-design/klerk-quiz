@@ -1,0 +1,98 @@
+@include font-face("Bebas Neue", "../fonts/bebasneueregular", normal normal, $file-formats: woff2 woff ttf);
+
+body, input, select, textarea {
+	color: _palette(base, foreground);
+	font-family: _font(body, family);
+	font-size: 12pt;
+	font-weight: _font(body, weight);
+	line-height: 1.65;
+}
+
+
+// Hyperlinks
+a {
+	color: _palette(base, accent);
+	text-decoration: none;
+	border-bottom: 1px solid rgba(_palette(base, accent), .3);
+}
+
+.link {
+	@at-root #{&}--muted {
+		color: _palette(base, foreground);
+		border-bottom: 1px solid rgba(_palette(base, foreground), .3);
+
+		&:hover {
+			border-bottom-color: rgba(_palette(base, foreground), .9);
+		}
+	}
+
+	@at-root #{&}--no-decoration {
+		border-bottom: none;
+	}
+}
+
+// Subscript & Superscript
+sub {
+	font-size: 0.8em;
+	position: relative;
+	top: 0.5em;
+}
+
+sup {
+	font-size: 0.8em;
+	position: relative;
+	top: -0.5em;
+}
+
+// Standalone classes
+.caps {
+	text-transform: uppercase;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}
+
+h1,h2,h3,h4,h5 {
+	font-family: _font(heading, family);
+}
+
+h1 {
+	font-weight: _font(heading, weight);
+
+	strong,b {
+		font-weight: _font(heading, weight-bold);
+	}
+
+	&.strong {
+		font-weight: _font(heading, weight-bold);
+	}
+}
+
+h2,h3,h4,h5 {
+	font-weight: _font(subheading, weight);
+
+	strong,b {
+		font-weight: _font(subheading, weight-bold);
+	}
+
+	&.strong {
+		font-weight: _font(subheading, weight-bold);
+	}
+}
+
+h2 {
+	letter-spacing: .05em;
+}
+
+h3 {
+	letter-spacing: .07em;
+}

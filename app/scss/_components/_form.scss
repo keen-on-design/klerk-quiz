@@ -1,0 +1,192 @@
+// skel-baseline v3.0.1 | (c) n33 | skel.io | MIT licensed
+
+/* Form */
+
+form {
+
+}
+
+label {
+  display: block;
+  font-size: 0.9em;
+  font-weight: _font(weight-bold);
+  margin: 0 0 (_size(element-margin) * 0.5) 0;
+}
+
+input[type="submit"] {
+  @include appearance('none');
+  border-radius: _size(border-radius);
+  border: solid _size(border-width) #ccc;
+  color: _palette(base, foreground);
+  display: block;
+  outline: 0;
+  padding: .4em .5em;
+  text-decoration: none;
+  width: auto;
+  margin: .6em 0;
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  @include appearance('none');
+  //background: _palette(border-bg);
+  border-radius: _size(border-radius);
+  //border: none;
+  border: solid _size(border-width) #ccc;
+  color: _palette(base, foreground);
+  display: block;
+  outline: 0;
+  padding: .4em .5em;
+  text-decoration: none;
+  width: 100%;
+
+  margin: .6em 0;
+
+  &:invalid {
+    //box-shadow: none;
+  }
+
+  &:focus {
+    //border-color: _palette(accent1, bg);
+    //box-shadow: 0 0 0 _size(border-width) _palette(accent1, bg);
+  }
+}
+
+.select-wrapper {
+  //@include icon('\f078');
+  display: block;
+  position: relative;
+
+  &:before {
+    //color: _palette(border);
+    display: block;
+    height: _size(element-height);
+    line-height: _size(element-height);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: _size(element-height);
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  //height: _size(element-height);
+}
+
+textarea {
+  padding: 0.75em 1em;
+}
+
+/*input[type="checkbox"],
+input[type="radio"], {
+  @include vendor('appearance', 'none');
+  display: block;
+  float: left;
+  margin-right: -2em;
+  opacity: 0;
+  width: 1em;
+  z-index: -1;
+
+  & + label {
+    @include icon;
+    color: _palette(fg);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: _font(weight);
+    padding-left: (_size(element-height) * 0.6) + 0.75em;
+    padding-right: 0.75em;
+    position: relative;
+
+    &:before {
+      background: _palette(border-bg);
+      border-radius: _size(border-radius);
+      border: solid _size(border-width) _palette(border);
+      content: '';
+      display: inline-block;
+      height: (_size(element-height) * 0.6);
+      left: 0;
+      line-height: (_size(element-height) * 0.575);
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: (_size(element-height) * 0.6);
+    }
+  }
+
+  &:checked + label {
+    &:before {
+      background: _palette(accent2, bg);
+      border-color: _palette(accent2, bg);
+      color: _palette(accent2, fg-bold);
+      content: '\f00c';
+    }
+  }
+
+  &:focus + label {
+    &:before {
+      border-color: _palette(accent1, bg);
+      box-shadow: 0 0 0 _size(border-width) _palette(accent1, bg);
+    }
+  }
+}
+
+input[type="checkbox"] {
+  & + label {
+    &:before {
+      border-radius: _size(border-radius);
+    }
+  }
+}
+
+input[type="radio"] {
+  & + label {
+    &:before {
+      border-radius: 100%;
+    }
+  }
+}*/
+
+::-webkit-input-placeholder {
+  color: _palette(neutrals, base) !important;
+  font-style: normal;
+  opacity: 1.0;
+}
+
+:-moz-placeholder {
+  color: _palette(neutrals, base) !important;
+  opacity: 1.0;
+  font-style: normal;
+}
+
+::-moz-placeholder {
+  color: _palette(neutrals, base) !important;
+  opacity: 1.0;
+  font-style: normal;
+}
+
+:-ms-input-placeholder {
+  color: _palette(neutrals, base) !important;
+  opacity: 1.0;
+  font-style: normal;
+}
+
+.formerize-placeholder {
+  color: _palette(neutrals, base) !important;
+  opacity: 1.0;
+  font-style: normal;
+}

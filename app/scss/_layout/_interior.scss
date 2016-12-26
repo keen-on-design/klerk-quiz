@@ -1,0 +1,13 @@
+#interior-swiper {
+	//max-height: 600px;
+
+	.swiper-slide {
+		overflow: hidden;
+	}
+
+	img {
+		width: 100%;
+		max-height: 600px;
+		object-fit: cover;
+	}
+}

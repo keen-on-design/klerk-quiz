@@ -1,0 +1,5 @@
+form.cta-form(data-parsley-validate, role="form", method="post")
+    input(type='text', name="name", placeholder='Как вас зовут?', required, data-parsley-trigger="focusin focusout")
+    input(type='text', name="tel", placeholder='Ваш телефон', required, data-parsley-trigger="focusin focusout")
+    input(type='hidden', name='action', value='Записаться на пробное занятие')
+    button.cta-form-button Записаться

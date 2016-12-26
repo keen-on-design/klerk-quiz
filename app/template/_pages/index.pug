@@ -1,0 +1,38 @@
+extends ../main
+
+block title
+  | keen builder main page
+
+block content
+  section#quiz__container
+    // Question 1
+    .quizlib-question.my-class
+      .quizlib-question-title 1. Question Title
+      .quizlib-question-answers
+        //Answer structure can be as simple or as complicated as you like, only the input elements matter to the library
+        input(type="radio", name="q1", value="a")
+        label Option 1
+        input(type="radio", name="q1", value="b")
+        label Option 2
+        button.qz-button-check(type="button", data-question="0") Check this question
+    hr
+    .quizlib-question.my-class
+      .quizlib-question-title 2. Question Title
+      .quizlib-question-answers
+        ul
+          li
+            input(type="checkbox", name="q2", value="a")
+            label Option 1
+          li
+            input(type="checkbox", name="q2", value="b")
+            label Option 2
+          li
+            input(type="checkbox", name="q2", value="c")
+            label Option 3
+          li
+            input(type="checkbox", name="q2", value="d")
+            label Option 4
+        button.qz-button-check(type="button", data-question="1") Check this question
+    hr
+    button(type="button", id="kquiz__score-button") Check Score
+

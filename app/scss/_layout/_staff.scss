@@ -1,0 +1,43 @@
+.staff {
+
+}
+
+.staff__person {
+  text-align: center;
+  padding-bottom: 2em;
+  h3 {
+    letter-spacing: .05em;
+    margin-bottom: 0;
+  }
+
+  span.job {
+    color: _palette(neutrals, dark);
+    font-size: .9em;
+  }
+}
+
+.person__image {
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #ccc;
+
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+
+  img {
+    display: block;
+    width: 100%;
+    opacity: .7;
+    @include transition(all .3s ease-in-out);
+  }
+
+  &:hover {
+    img {
+      opacity: 1;
+    }
+  }
+}

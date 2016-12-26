@@ -1,0 +1,21 @@
+section.intro
+    div#intro-swiper.swiper-container
+        .swiper-wrapper
+            .swiper-slide.intro__band
+            .swiper-slide.intro__concert
+            .swiper-slide.intro__band
+        .intro__slogan
+            .wrapper
+                .slogan__logo
+                    svg(viewBox="0 0 120 16")
+                        use(xlink:href="svg/symbol/svg/sprite.symbol.svg#logo")
+                .slogan__heading
+                    h1 Территория настоящей музыки
+        .intro__form
+            form.cta-form(action="test.php", data-parsley-validate="", role="form", method="post")
+                h2 Запишись на первое бесплатное занятие
+                input(type='text', name="name", placeholder='Как вас зовут?', required, data-parsley-trigger="focusin focusout")
+                .submit_split
+                    input(type='text', name="tel", placeholder='Ваш телефон', required="true", data-parsley-trigger="focusin focusout")
+                    input(type='hidden', name='action', value='Записаться на пробное занятие')
+                    button.cta-form-button Записаться

@@ -1,0 +1,17 @@
+section {
+
+  &.offset-top {
+    padding-top: 2rem;
+  }
+
+  &.offset-bottom {
+    padding-bottom: 2rem;
+  }
+
+  &.backgrounded {
+    background-size: cover;
+    background: #00b3ee url(../images/intro/concert.jpg) center center;
+
+    color: _palette(neutrals, x-light);
+  }
+}

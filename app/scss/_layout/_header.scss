@@ -1,0 +1,154 @@
+header {
+  background: rgba(_palette(neutrals, x-dark), .9);
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+
+  @include transition(background-color .4s ease-in-out);
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    > li {
+      padding: 0;
+      margin: 0;
+      display: block;
+      float: left;
+    }
+  }
+}
+
+.header__container {
+  padding: 30px 3.117359413202934%;
+  @include transition(padding .4s ease-in-out);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  a {
+    text-decoration: none;
+    border-bottom: none;
+  }
+}
+
+.header__logo {
+  width: 120px;
+  height: 16px;
+
+  svg {
+    fill: _palette(neutrals, x-light);
+  }
+}
+
+.header__nav {
+  flex-grow: 1;
+  padding: 0 0 0 10px;
+  overflow: hidden;
+
+  ul {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+
+    li {
+      letter-spacing: .05em;
+      display: block;
+      float: left;
+      text-transform: uppercase;
+
+      padding: 0 5%;
+    }
+  }
+
+  a {
+    color : _palette(neutrals, x-light);
+    font-family: _font(heading, family);
+    font-weight: _font(heading, weight);
+    position: relative;
+    display: inline-block;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 2px;
+      width: 94%;
+      left: 3%;
+      background-color: _palette(base, background);
+      position: absolute;
+      bottom: 50%;
+      opacity: 0;
+
+      @include transition-property(bottom, opacity);
+      @include transition-duration(.2s);
+      @include transition-timing-function(ease-out);
+    }
+
+    &:hover {
+      &:after {
+        bottom: 0;
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      &:after {
+        bottom: 50%;
+        opacity: 1;
+      }
+
+      &:hover {
+        &:after {
+          bottom: 50%;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+}
+
+.header__side-nav {
+  ul {
+    display: block;
+    float: left;
+
+    > li {
+      font-size: .9rem;
+      margin-right: 15px;
+
+      a {
+        color: _palette(base, foreground);
+      }
+    }
+  }
+
+  .button {
+    font-size: .8rem;
+    display: block;
+    margin-top: 2px;
+    background-color: _palette(base, orange);
+    padding: 0 .5em;
+    color: _palette(neutrals, x-dark);
+    border-radius: 3px;
+    cursor: pointer;
+
+    @include transition(all 200ms ease-in-out);
+
+    &:hover {
+      background-color: _palette(neutrals, x-light);
+    }
+  }
+}
+
+.side-nav__social > li:last-child {
+  margin-right: 40px;
+}
+
+.headroom--not-top {
+  .header__container {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
