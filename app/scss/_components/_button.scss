@@ -1,0 +1,99 @@
+.qz-button-check {
+	font: bold 14px/37px "PT Sans", Arial, sans-serif;
+	color: #fff;
+	letter-spacing: 1.2px;
+	text-transform: uppercase;
+	display: block;
+	margin: 5px auto!important;
+	padding: 0 10px!important;
+	min-width: 100px;
+	cursor: pointer;
+	@include linear-gradient(#81d051 0%, #50a81b 50%, #4daf12 100%);
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	border: 1px transparent solid!important;
+	border-bottom: 1px #386601 solid!important;
+	outline: none!important;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.qz-button-check:focus {
+	border: 1px #7bda41 solid!important;
+	border-bottom: 1px #5b9418 solid!important;
+}
+
+.qz-answer-button {
+	color: #010101;
+	padding: 5px 10px;
+	margin: 0 10px 0 0;
+	height: 100%;
+	@include linear-gradient(#f1f1f1 0%, #f9f2e9 50%, #c5c0b9 100%);
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	border-bottom: 1px #a3a09c solid;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.qz-answer-button input[type="checkbox"], .qz-answer-button input[type="radio"] {
+    margin: 0!important;
+    display: none;
+}
+
+.qz-answer-button label {
+	cursor: pointer;
+	display: -moz-inline-box;
+    display: inline-block;
+    vertical-align: top;   
+    position: relative;
+    margin: 0 0 0 30px;
+}
+
+.qz-answer-button label:before {
+	content: "";
+	display: -moz-inline-box;
+    display: inline-block;
+	width: 18px;
+	height: 18px;	
+	position: absolute;
+	left: -30px;
+	top: 1px;
+	text-align: center;
+    font-size: 30px;
+    line-height: 14px;
+    font-weight: bold;
+    color: #fff;
+	background: #373c4d;
+	-moz-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
+	-webkit-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
+	box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
+}
+
+.qz-radio label:before {
+	@include border-top-radius(50%);
+	@include border-bottom-radius(50%);
+	@include border-left-radius(50%);
+	@include border-right-radius(50%);
+}
+
+.qz-checkbox label:before {
+    @include border-top-radius(3px);
+	@include border-bottom-radius(3px);
+	@include border-left-radius(3px);
+	@include border-right-radius(3px);
+}
+
+.qz-answer-button input[type="radio"]:checked + label:before {
+    content: "\2022";
+}
+
+.qz-answer-button input[type="checkbox"]:checked + label:before {
+	content: "\2713";
+}
