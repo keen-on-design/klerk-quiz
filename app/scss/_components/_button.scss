@@ -26,12 +26,35 @@
 	border-bottom: 1px #5b9418 solid!important;
 }
 
+.qz-button-score {
+	font: bold 18px/37px "PT Sans", Arial, sans-serif;
+	color: #35730f;
+	letter-spacing: 1.3px;
+	text-transform: uppercase;
+	display: block;
+	margin: 0 auto!important;
+	padding: 0 10px!important;
+	min-width: 200px;
+	cursor: pointer;
+	@include linear-gradient(#f1f1f1 0%, #eee 50%, #ccc 100%);
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	border: 1px transparent solid!important;
+	border-bottom: 1px #777 solid!important;
+	outline: none!important;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
 .qz-answer-button {
 	color: #010101;
 	padding: 5px 10px;
 	margin: 0 10px 0 0;
 	height: 100%;
-	@include linear-gradient(#f1f1f1 0%, #f9f2e9 50%, #c5c0b9 100%);
+	@include linear-gradient(#f1f1f1 0%, #eee 50%, #ccc 100%);
 	@include border-top-radius(5px);
 	@include border-bottom-radius(5px);
 	@include border-left-radius(5px);
@@ -49,8 +72,7 @@
 
 .qz-answer-button label {
 	cursor: pointer;
-	display: -moz-inline-box;
-    display: inline-block;
+	display: block;
     vertical-align: top;   
     position: relative;
     margin: 0 0 0 30px;

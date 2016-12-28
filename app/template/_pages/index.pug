@@ -72,5 +72,10 @@ block content
             div.qz-answer-button.qz-checkbox
               input(type="checkbox", name="q4", value="a", id="q4_a")
               label(for="q4_a") Длинный длинный длинный длинный ответ 1
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q4", value="b", id="q4_b")
+              label(for="q4_b") Ответ 2
         button.qz-button-check(type="button", data-question="3") ответ
-    button(type="button", id="kquiz__score-button") Check Score
+    div.qz-score
+      button.qz-button-score(type="button", id="kquiz__score-button") Результат

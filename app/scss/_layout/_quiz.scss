@@ -15,7 +15,7 @@
 	max-width: 1000px;
 	box-sizing: border-box;
 	background: #373c4d;
-	margin: 0 0 30px;
+	margin: 15px 0;
 	padding: 12px 30px 12px 35px;
 	@include border-top-radius(10px);
 	@include border-bottom-radius(10px);
@@ -51,4 +51,8 @@
 	margin: 0 0 10px;
 	padding: 0;
 	list-style: none;
+}
+
+.qz-score {
+	max-width: 1000px;
 }
