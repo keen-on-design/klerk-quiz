@@ -5,34 +5,72 @@ block title
 
 block content
   section#quiz__container
-    // Question 1
-    .quizlib-question.my-class
-      .quizlib-question-title 1. Question Title
-      .quizlib-question-answers
-        //Answer structure can be as simple or as complicated as you like, only the input elements matter to the library
-        input(type="radio", name="q1", value="a")
-        label Option 1
-        input(type="radio", name="q1", value="b")
-        label Option 2
-        button.qz-button-check(type="button", data-question="0") Check this question
-    hr
-    .quizlib-question.my-class
-      .quizlib-question-title 2. Question Title
-      .quizlib-question-answers
-        ul
-          li
-            input(type="checkbox", name="q2", value="a")
-            label Option 1
-          li
-            input(type="checkbox", name="q2", value="b")
-            label Option 2
-          li
-            input(type="checkbox", name="q2", value="c")
-            label Option 3
-          li
-            input(type="checkbox", name="q2", value="d")
-            label Option 4
-        button.qz-button-check(type="button", data-question="1") Check this question
-    hr
+    .qz-question
+      .qz-question-title 
+        span.qz-question-number 1. 
+        span.qz-question-text В период первобытнообщинного строя горшки лепили из глины, песка и:
+      .qz-question-answers
+        ul.flex-container
+          li.flex-child
+            div.qz-answer-button.qz-radio
+              input(type="radio", name="q1", value="answer-a", id="q1_a")
+              label(for="q1_a") Извести
+          li.flex-child
+            div.qz-answer-button.qz-radio
+              input(type="radio", name="q1", value="answer-b", id="q1_b")
+              label(for="q1_b") Цемента
+        button.qz-button-check(type="button", data-question="0") ответ
+    .qz-question
+      .qz-question-title
+        span.qz-question-number 2. 
+        span.qz-question-text Первым существом, появившимся на свет, по китайской мифологии, был:
+      .qz-question-answers
+        ul.flex-container
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q2", value="a", id="q2_a")
+              label(for="q2_a") Паньгу
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q2", value="b", id="q2_b")
+              label(for="q2_b") Нюйва
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q2", value="c", id="q2_c")
+              label(for="q2_c") Фуси
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q2", value="d", id="q2_d")
+              label(for="q2_d") Другой другой другой другой другой другой другой другой другой другой другой
+        button.qz-button-check(type="button", data-question="1") ответ
+    .qz-question
+      .qz-question-title 
+        span.qz-question-number 3. 
+        span.qz-question-text Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный вопрос
+      .qz-question-answers
+        ul.flex-container
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q3", value="a", id="q3_a")
+              label(for="q3_a") Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный ответ 1
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q3", value="b", id="q3_b")
+              label(for="q3_b") Ответ 2
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q3", value="c", id="q3_c")
+              label(for="q3_c") Длинный длинный длинный длинный длинный длинный Длинныйдлинный длинный длинный ответ 3
+        button.qz-button-check(type="button", data-question="2") ответ
+    .qz-question
+      .qz-question-title
+        span.qz-question-number 4. 
+        span.qz-question-text Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный вопрос
+      .qz-question-answers
+        ul.flex-container
+          li.flex-child
+            div.qz-answer-button.qz-checkbox
+              input(type="checkbox", name="q4", value="a", id="q4_a")
+              label(for="q4_a") Длинный длинный длинный длинный ответ 1
+        button.qz-button-check(type="button", data-question="3") ответ
     button(type="button", id="kquiz__score-button") Check Score
-

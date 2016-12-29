@@ -38,13 +38,13 @@ var Quiz = function(quizContainer, answers) {
    * @final
    */
   this.Classes = Object.freeze({
-    QUESTION: "quizlib-question",
-    QUESTION_TITLE: "quizlib-question-title",
-    QUESTION_ANSWERS: "quizlib-question-answers",
-    QUESTION_WARNING: "quizlib-question-warning",
-    CORRECT: "quizlib-correct",
-    INCORRECT: "quizlib-incorrect",
-    TEMP: "quizlib-temp"
+    QUESTION: "qz-question",
+    QUESTION_TITLE: "qz-question-title",
+    QUESTION_ANSWERS: "qz-question-answers",
+    QUESTION_WARNING: "qz-question-warning",
+    CORRECT: "qz-correct",
+    INCORRECT: "qz-incorrect",
+    TEMP: "qz-temp"
   });
 
   /**
@@ -340,7 +340,12 @@ Utils.compare = function(obj1, obj2) {
 };
 
 (function ($, Quiz) {
-  var quiz = new Quiz('quiz__container', ['a', ['b', 'c']]);
+  var quiz = new Quiz('quiz__container', [
+    'answer-a',
+    ['c', 'd'],
+    ['a', 'b', 'c'],
+    ['a']
+  ]);
 
   $('#kquiz__score-button').click(function () {
 
