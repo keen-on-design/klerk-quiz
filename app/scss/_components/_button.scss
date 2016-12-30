@@ -53,15 +53,20 @@
 	color: #010101;
 	margin: 0 10px 0 0;
 	height: 100%;
-	@include linear-gradient(#f1f1f1 0%, #eee 50%, #ccc 100%);
+	@include linear-gradient(#d9d9d9 0%, #eee 45%, #c5c5c5 100%);
 	@include border-top-radius(5px);
 	@include border-bottom-radius(5px);
 	@include border-left-radius(5px);
 	@include border-right-radius(5px);
-	border-bottom: 1px #a3a09c solid;
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	border: 2px transparent solid;
+	border-bottom: 2px #a3a09c solid;
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .qz-answer-button input[type="checkbox"], .qz-answer-button input[type="radio"] {

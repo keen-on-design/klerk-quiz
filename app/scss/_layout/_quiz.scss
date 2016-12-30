@@ -7,12 +7,11 @@
 }
 
 .flex-container > .flex-child {
-  @include flex(1 1 50%);
+ 	@include flex(1 1 50%);
 }
 
 .qz__container {
 	font: normal 16px/19px "PT Sans", Arial, sans-serif;
-	background-color: #00b3ee;
 	width: 100%;
 	max-width: 1000px;
 	overflow: hidden;
@@ -41,13 +40,10 @@
 }
 
 .qz-question {
-
 	max-width: 1000px;
 	box-sizing: border-box;
-	background: #EEEFF1;
 	margin: 0;
 	display: none;
-
 	&.active {
 		display: block;
 	}
@@ -60,17 +56,32 @@
 .qz-question-title {
 	color: #fff;
 	position: relative;
-	background-color: #000;
 	min-height: 250px;
 	display: flex;
 	align-items: center;
 	align-content: center;
 }
 
+.qz-question-title:before {
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+}
+
+.qz-bg_01 .qz-question-title, .qz-bg_02 .qz-question-title, .qz-bg_03 .qz-question-title, .qz-bg_04 .qz-question-title {
+	@include background-image(url("http://www.klerk.ru/img/pb/original/puzzle1487340i1280_8508.jpg"));
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 .qz-question-number {
 	position: absolute;
 	display: block;
-
 	font-size: .8em;
 	width: 50px;
 	left: 50%;
@@ -85,9 +96,12 @@
 	margin: 0 auto;
 	line-height: 100%;
 	text-align: center;
+	position: relative;
 }
 
 .qz-question-answers {
+	position: relative;
+	background: #EEEFF1;
 	@include padding(1em);
 }
 
@@ -104,11 +118,13 @@
 }
 
 .qz-correct {
-	background: #3e8f3e none;
+	background: #3e8f3e;
+	color: #f1f1f1;
 }
 
 .qz-incorrect {
-	background: #8b211e none;
+	background: #8b211e;
+	color: #f1f1f1;
 }
 
 .qz-correct-missing {
