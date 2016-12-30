@@ -39,6 +39,32 @@
 	}
 }
 
+.qz-result {
+	background-color: lighten(#000, 10%);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	height: 300px;
+
+	p {
+		padding: 0 0 10px 0;
+		margin: 0;
+	}
+
+	display: none;
+
+	&.active {
+		display: flex;
+	}
+
+	h1 {
+		font-size: 30px;
+		text-align: center;
+		max-width: 90%;
+	}
+}
+
 .qz-question {
 	max-width: 1000px;
 	box-sizing: border-box;
