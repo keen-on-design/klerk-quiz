@@ -43,6 +43,7 @@ var Quiz = function(quizContainer, answers) {
     QUESTION_ANSWERS: "qz-question-answers",
     QUESTION_WARNING: "qz-question-warning",
     CORRECT: "qz-correct",
+    MISSING: "qz-correct-missing",
     INCORRECT: "qz-incorrect",
     TEMP: "qz-temp"
   });
@@ -86,6 +87,17 @@ var Quiz = function(quizContainer, answers) {
   }
 };
 
+Quiz.prototype.getQuestionNode = function (index) {
+  if (this.hasQuestion(index)) {
+    return this.questions[index];
+  } else {
+    return false;
+  }
+};
+
+Quiz.prototype.hasQuestion = function (index) {
+  return this.questions[index] !== undefined;
+};
 
 Quiz.prototype.getUserAnswer = function (index) {
   if (this.questions[index] === undefined)  {
@@ -114,17 +126,26 @@ Quiz.prototype.getUserAnswer = function (index) {
 
 };
 
+Quiz.prototype.getCorrectAnswer = function (index) {
+  if (this.answers[index] === undefined) {
+    return false;
+  }
+  return this.answers[index];
+};
 
-Quiz.prototype.checkAnswer = function(index) {
+Quiz.prototype.checkAnswer = function(index, givenAnswer) {
   if (this.questions[index] === undefined || this.answers[index] === undefined) {
     return false;
   }
+  var answer = this.getCorrectAnswer(index);
+  return (answer === false) ? false : this.compareAnswers(answer, givenAnswer)
+};
 
-  var answer   = this.answers[index],
-    userAnswer = this.getUserAnswer(index);
-
-  //Compare user answer with correct one
-  return Utils.compare(userAnswer, answer);
+Quiz.prototype.compareAnswers = function (primaryAnswer, secondaryAnswer) {
+  if (primaryAnswer === undefined || secondaryAnswer === undefined) {
+    return false;
+  }
+  return Utils.compare(primaryAnswer, secondaryAnswer);
 };
 
 /**
@@ -362,13 +383,61 @@ Utils.compare = function(obj1, obj2) {
     alert(message);
   });
 
+  $('.qz-button-start').click(function () {
+    var self = $(this),
+      parent = self.closest('.qz-opener');
+    parent.removeClass('active');
+    $(quiz.getQuestionNode(0)).addClass('active');
+  });
+
   $.each($('.qz-button-check'), function () {
-    var self = $(this);
-    self.click(function () {
-      if (self.data('question') !== undefined) {
-        alert(quiz.checkAnswer(parseInt(self.data('question'))));
-      }
-    });
+    var self       = $(this),
+      questionNode = self.closest('.' + quiz.Classes.QUESTION),
+      index        = questionNode.index('.' + quiz.Classes.QUESTION);
+
+    if (quiz.hasQuestion(index)) {
+
+      self.click(function () {
+        var userAnswers = quiz.getUserAnswer(index),
+          correctAnswers = quiz.getCorrectAnswer(index);
+
+        if (userAnswers === false || correctAnswers === false) {
+          return;
+        }
+
+        if (!(userAnswers instanceof Array)) {
+          userAnswers = [userAnswers];
+        }
+
+        if (!(correctAnswers instanceof Array)) {
+          correctAnswers = [correctAnswers];
+        }
+
+        $.each(userAnswers, function (index, value) {
+          var input = $(questionNode.find('input[value="' + value + '"]'));
+          if ($.inArray(value, correctAnswers) !== -1) {
+            input.parent().addClass(quiz.Classes.CORRECT);
+          } else {
+            input.parent().addClass(quiz.Classes.INCORRECT);
+          }
+        });
+
+        $.each(correctAnswers, function (index, value) {
+          var input = $(questionNode.find('input[value="' + value + '"]'));
+          if ($.inArray(value, userAnswers) === -1) {
+            input.parent().addClass(quiz.Classes.MISSING);
+          }
+        });
+
+        window.setTimeout(function () {
+          if (quiz.hasQuestion(index + 1)) {
+            $(quiz.getQuestionNode(index)).removeClass('active');
+            $(quiz.getQuestionNode(index + 1)).addClass('active');
+          }
+        }, 2000);
+
+      });
+    }
   });
 
 })($, Quiz);
