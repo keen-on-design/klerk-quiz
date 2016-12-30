@@ -390,6 +390,43 @@ Utils.compare = function(obj1, obj2) {
     $(quiz.getQuestionNode(0)).addClass('active');
   });
 
+  function quizResult() {
+    quiz.checkAnswers(false);
+    var result = quiz.result.scorePercentFormatted;
+    console.log(quiz.result.scorePercentFormatted);
+
+    if (result < 30) {
+      $('.qz-result-poor').addClass('active');
+    }
+
+    if (result >= 30 && result < 70) {
+      $('.qz-result-normal').addClass('active');
+    }
+
+    if (result >= 70 && result < 90) {
+      $('.qz-result-good').addClass('active');
+    }
+
+    if (result >= 90) {
+      $('.qz-result-excelent').addClass('active');
+    }
+  }
+
+  $('.qz-button-restart').click(function () {
+    var self = $(this),
+      inputs = self.closest('.qz__container').find('input');
+
+    $.each(inputs, function (index, input) {
+      var self = $(input);
+      self.parent().removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING);
+      self.removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING);
+      self.prop('checked', false);
+    });
+
+    self.closest('.qz-result').removeClass('active');
+    $('.qz-opener').addClass('active');
+  });
+
   $.each($('.qz-button-check'), function () {
     var self       = $(this),
       questionNode = self.closest('.' + quiz.Classes.QUESTION),
@@ -433,6 +470,9 @@ Utils.compare = function(obj1, obj2) {
           if (quiz.hasQuestion(index + 1)) {
             $(quiz.getQuestionNode(index)).removeClass('active');
             $(quiz.getQuestionNode(index + 1)).addClass('active');
+          } else {
+            $(quiz.getQuestionNode(index)).removeClass('active');
+            quizResult();
           }
         }, 2000);
 
