@@ -11,7 +11,7 @@
  * @example
  * 		new Quiz('quiz-div', ['a', '7', ['c', 'd'], 'squids', ['a', 'b']]);
  */
-var Quiz = function(quizContainer, answers) {
+var Quiz = function(quizContainer, answers, config) {
   /**
    * Enum containing classes used by QuizLib as follows:
    * - **QUESTION**: 'quizlib-question'
@@ -37,6 +37,13 @@ var Quiz = function(quizContainer, answers) {
    * @default See above
    * @final
    */
+
+  var defaults = {
+    onInit : function () {}
+  };
+
+  this.config = $.extend(defaults, config);
+
   this.Classes = Object.freeze({
     QUESTION: "qz-question",
     QUESTION_TITLE: "qz-question-title",
@@ -85,6 +92,8 @@ var Quiz = function(quizContainer, answers) {
   if (this.answers.length != this.questions.length) {
     throw new Error("Number of answers does not match number of questions!");
   }
+
+  this.config.onInit.call(this);
 };
 
 Quiz.prototype.getQuestionNode = function (index) {
@@ -361,12 +370,24 @@ Utils.compare = function(obj1, obj2) {
 };
 
 (function ($, Quiz) {
+
+  FB.init({
+    appId: 1372992109400984,
+    version: 'v2.7'
+  });
+
   var quiz = new Quiz('quiz__container', [
     'answer-a',
     ['c', 'd'],
-    ['a', 'b', 'c'],
-    ['a']
-  ]);
+  ], {
+    // Automatically add question index
+    onInit : function () {
+      var questionsCount = this.questions.length;
+      $.each(this.questions, function (index, node) {
+        $(node).find('.qz-question-number').html((index + 1) + ' / ' + questionsCount);
+      });
+    }
+  });
 
   $('#kquiz__score-button').click(function () {
 
@@ -400,15 +421,15 @@ Utils.compare = function(obj1, obj2) {
     }
 
     if (result >= 30 && result < 70) {
-      $('.qz-result-normal').addClass('active');
+      $('.qz-result-poor').addClass('active');
     }
 
     if (result >= 70 && result < 90) {
-      $('.qz-result-good').addClass('active');
+      $('.qz-result-poor').addClass('active');
     }
 
     if (result >= 90) {
-      $('.qz-result-excelent').addClass('active');
+      $('.qz-result-poor').addClass('active');
     }
   }
 
@@ -450,6 +471,10 @@ Utils.compare = function(obj1, obj2) {
           correctAnswers = [correctAnswers];
         }
 
+        questionNode.find('input').bind("click.quiz-events", function (event) {
+          event.preventDefault();
+        });
+
         $.each(userAnswers, function (index, value) {
           var input = $(questionNode.find('input[value="' + value + '"]'));
           if ($.inArray(value, correctAnswers) !== -1) {
@@ -467,6 +492,9 @@ Utils.compare = function(obj1, obj2) {
         });
 
         window.setTimeout(function () {
+
+          questionNode.find('input').unbind('click.quiz-events');
+
           if (quiz.hasQuestion(index + 1)) {
             $(quiz.getQuestionNode(index)).removeClass('active');
             $(quiz.getQuestionNode(index + 1)).addClass('active');
@@ -478,6 +506,16 @@ Utils.compare = function(obj1, obj2) {
 
       });
     }
+  });
+
+  $('.qz-button-fb').click(function() {
+    FB.ui({
+      method: "feed",
+      link: window.location.href,
+      caption: "Example.com",
+      description: "Here is the text I want to share.",
+      picture: "http://example.com/image.png"
+    });
   });
 
 })($, Quiz);
