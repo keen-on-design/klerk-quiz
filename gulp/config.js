@@ -45,6 +45,17 @@ module.exports = {
         }
     },
 
+    html : {
+        location       : path.src + 'html/**/*.html',
+        destinationDev : path.destDev,
+        destinationRls : path.destRls,
+
+        config: {
+            pretty: '\t',
+            basedir: path.root
+        }
+    },
+
     pug: {
         location       : path.src + 'template/**/*.pug',
         compiled       : path.src + 'template/_pages/*.pug',

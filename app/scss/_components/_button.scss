@@ -4,6 +4,7 @@
 	letter-spacing: 1.2px;
 	text-transform: uppercase;
 	display: block;
+	position: relative;
 	margin: 5px auto!important;
 	padding: 0 10px!important;
 	min-width: 100px;
@@ -19,6 +20,14 @@
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.qz-button:hover {
+	@include linear-gradient(#8cd460 0%, #5aad29 50%, #57b31f 100%);
 }
 
 .qz-button-check:focus {
@@ -53,7 +62,7 @@
 	color: #010101;
 	margin: 0 10px 0 0;
 	height: 100%;
-	@include linear-gradient(#d9d9d9 0%, #eee 45%, #c5c5c5 100%);
+	/*@include linear-gradient(#d9d9d9 0%, #eee 45%, #c5c5c5 100%);
 	@include border-top-radius(5px);
 	@include border-bottom-radius(5px);
 	@include border-left-radius(5px);
@@ -62,7 +71,7 @@
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	border: 2px transparent solid;
-	border-bottom: 2px #a3a09c solid;
+	border-bottom: 2px #a3a09c solid;*/
 	-webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
@@ -98,10 +107,17 @@
     line-height: 14px;
     font-weight: bold;
     color: #fff;
-	background: #373c4d;
-	-moz-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
-	-webkit-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
-	box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
+	background: #fff;
+	border: 2px #373c4d solid;
+	box-sizing: border-box;
+	-webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+}
+
+.qz-question-answers li:hover .qz-answer-button label:before {
+	border: 5px #6c738d solid;
 }
 
 .qz-radio label:before {
@@ -112,16 +128,89 @@
 }
 
 .qz-checkbox label:before {
-    @include border-top-radius(3px);
-	@include border-bottom-radius(3px);
-	@include border-left-radius(3px);
-	@include border-right-radius(3px);
+    @include border-top-radius(2px);
+	@include border-bottom-radius(2px);
+	@include border-left-radius(2px);
+	@include border-right-radius(2px);
 }
 
-.qz-answer-button input[type="radio"]:checked + label:before {
-    content: "\2022";
+.qz-answer-button label span {
+	content: "";	
+	width: 18px;
+	height: 18px;	
+	position: absolute;
+	left: -20px;
+	top: 6px;
+    @include border-top-radius(50%);
+	@include border-bottom-radius(50%);
+	@include border-left-radius(50%);
+	@include border-right-radius(50%);
 }
 
-.qz-answer-button input[type="checkbox"]:checked + label:before {
-	content: "\2713";
+.qz-answer-button input[type="radio"]:checked + label:before, .qz-answer-button input[type="checkbox"]:checked + label:before {
+	border-color: transparent;
+	background: transparent;
+}
+
+.qz-answer-button input:checked + label span:before, .qz-answer-button input:checked + label span:after {
+	content: "";
+    position: absolute;
+    z-index: 1;
+    background: #149214;
+}
+
+.qz-answer-button input:checked + label span:before {   
+	width: 12px;
+    height: 3px;
+    top: 9px;
+    left: -3px;
+    -webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.qz-answer-button input:checked + label span:after {	
+	width: 25px;
+    height: 3px;
+    top: 3px;
+    left: 0px;
+	-webkit-transform: rotate(-65deg);
+	-moz-transform: rotate(-65deg);
+	-ms-transform: rotate(-65deg);
+	-o-transform: rotate(-65deg);
+	transform: rotate(-65deg);
+}
+
+.qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:after, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:after {
+	background: rgba(20,146,20,0.4);
+}
+
+.qz-button-fb {
+	font-size: 0;
+	width: 50px;
+	height: 50px;
+	margin: 5px!important;
+	padding: 0!important;
+	@include background-image(url("http://www.klerk.ru/html5/i/ic_f.png"));
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	cursor: pointer;
+	border: none!important;
+	outline: none!important;
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.qz-button-fb:hover {
+	-webkit-filter: saturate(150%);
+	filter: saturate(150%);
 }

@@ -372,13 +372,12 @@ Utils.compare = function(obj1, obj2) {
 (function ($, Quiz) {
 
   FB.init({
-    appId: 1372992109400984,
+    appId: 111067065633348,
     version: 'v2.7'
   });
 
   var quiz = new Quiz('quiz__container', [
-    'answer-a',
-    ['c', 'd'],
+    ["a","c"],"c","c","c","d","c","b","a","b","b","c","b","c","b","a","a"
   ], {
     // Automatically add question index
     onInit : function () {
@@ -416,20 +415,20 @@ Utils.compare = function(obj1, obj2) {
     var result = quiz.result.scorePercentFormatted;
     console.log(quiz.result.scorePercentFormatted);
 
-    if (result < 30) {
+    if (result < 33) {
       $('.qz-result-poor').addClass('active');
     }
 
-    if (result >= 30 && result < 70) {
-      $('.qz-result-poor').addClass('active');
+    if (result >= 33 && result < 67) {
+      $('.qz-result-normal').addClass('active');
     }
 
-    if (result >= 70 && result < 90) {
-      $('.qz-result-poor').addClass('active');
+    if (result >= 67 && result < 93) {
+      $('.qz-result-good').addClass('active');
     }
 
-    if (result >= 90) {
-      $('.qz-result-poor').addClass('active');
+    if (result >= 93) {
+      $('.qz-result-excelent').addClass('active');
     }
   }
 
@@ -509,13 +508,15 @@ Utils.compare = function(obj1, obj2) {
   });
 
   $('.qz-button-fb').click(function() {
-    FB.ui({
+    var config = {
       method: "feed",
       link: window.location.href,
-      caption: "Example.com",
-      description: "Here is the text I want to share.",
-      picture: "http://example.com/image.png"
-    });
+      caption: $(this).closest('.qz-result').find('h1').html(),
+      description: $(this).closest('.qz-result').find('p').html(),
+      picture: $(this).closest('.qz-result').find('.qz-result-pic').attr('src')
+    };
+    console.log(config);
+    FB.ui(config);
   });
 
 })($, Quiz);

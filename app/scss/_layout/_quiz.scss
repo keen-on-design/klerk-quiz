@@ -19,13 +19,17 @@
 
 .qz-opener {
 	background-color: lighten(#000, 10%);
+	background-position: center center;
+	background-repeat: no-repeat;
+    background-size: cover;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	color: #fff;
-	height: 300px;
-
+	min-height: 300px;
+	padding: 10px 0;
+	position: relative;
 	display: none;
 
 	&.active {
@@ -34,9 +38,36 @@
 
 	h1 {
 		font-size: 30px;
+		line-height: 30px;
 		text-align: center;
 		max-width: 90%;
+		position: relative;
 	}
+
+	p {
+		max-width: 90%;
+		margin: 0 0 12px;
+		position: relative;
+		width: 100%;
+	}
+
+	a {
+		color: #fff;
+	}
+
+	a:hover {
+		color: #efefef;
+	}
+}
+
+.qz-opener:before {
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
 }
 
 .qz-result {
@@ -46,9 +77,11 @@
 	justify-content: center;
 	color: #fff;
 	height: 300px;
+	padding: 10px 0;
+	position: relative;
 
 	p {
-		padding: 0 0 10px 0;
+		padding: 0 10% 10px;
 		margin: 0;
 	}
 
@@ -60,9 +93,40 @@
 
 	h1 {
 		font-size: 30px;
+		line-height: 30px;
 		text-align: center;
-		max-width: 90%;
+		padding: 0 5%;
 	}
+
+	.qz-result-pic {
+		object-fit: cover;
+	}
+
+	.qz-result-text {
+		position: relative;
+		display: table;
+		text-align: center;
+	}
+}
+
+.qz-result-pic {
+	display: block;
+}
+
+.qz-result-pic-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.qz-result-pic-wrap:before {
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
 }
 
 .qz-question {
@@ -82,10 +146,14 @@
 .qz-question-title {
 	color: #fff;
 	position: relative;
-	min-height: 250px;
+	height: 350px;
+	padding: 10px 0;
 	display: flex;
 	align-items: center;
 	align-content: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .qz-question-title:before {
@@ -98,13 +166,6 @@
     background: rgba(0,0,0,0.4);
 }
 
-.qz-bg_01 .qz-question-title, .qz-bg_02 .qz-question-title, .qz-bg_03 .qz-question-title, .qz-bg_04 .qz-question-title {
-	@include background-image(url("http://www.klerk.ru/img/pb/original/puzzle1487340i1280_8508.jpg"));
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
 .qz-question-number {
 	position: absolute;
 	display: block;
@@ -112,6 +173,7 @@
 	width: 50px;
 	left: 50%;
 	top: 10px;
+	margin-left: -15px;
 }
 
 .qz-question-text {
@@ -119,7 +181,7 @@
 	font-size: 30px;
 	font-weight: bold;
 	max-width: 90%;
-	margin: 0 auto;
+	margin: 20px auto 10px;
 	line-height: 100%;
 	text-align: center;
 	position: relative;
@@ -127,32 +189,36 @@
 
 .qz-question-answers {
 	position: relative;
-	background: #EEEFF1;
-	@include padding(1em);
 }
 
 .qz-question-answers ul {
-	margin: 0;
+	@include margin(0 0 10px);
 	padding: 0;
 	list-style: none;
 }
 
 .qz-question-answers li {
-	margin: 0 0 10px;
-	padding: 0;
+	margin: 0;
+	@include padding(10px 0);
 	list-style: none;
+	border-bottom: 1px #e6e6e6 solid;
 }
 
 .qz-correct {
-	background: #3e8f3e;
-	color: #f1f1f1;
+	color: #149214;
 }
 
 .qz-incorrect {
-	background: #8b211e;
-	color: #f1f1f1;
+	color: #ce1914;
 }
 
 .qz-correct-missing {
-	border: 2px dotted #3e8f3e;
+	color: #149214;	
+}
+
+@media only screen and (max-width: 768px) {
+.qz-result h1, .qz-opener h1, .qz-question-text {
+	font-size: 22px;
+	line-height: 24px;
+	}
 }

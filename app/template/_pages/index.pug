@@ -7,29 +7,41 @@ block content
   section
     .qz__container#quiz__container
 
-      .qz-opener.active
+      .qz-opener.active(style="background-image:url(http://www.klerk.ru/img/pb/original/0a_8726.jpg);")
         h1 Название теста
         button.qz-button.qz-button-start(type="button") Начать тест
 
       .qz-result.qz-result-poor
-        h1 Вы — Ангел во плоти. Ну, или божий одуванчик
-        p Какое-то описание
-        button.qz-button.qz-button-restart(type="button") Пройти заного
-        button.qz-button.qz-button-fb(type="button") FB
+        div.qz-result-pic-wrap
+          img.qz-result-pic(src="http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg", alt="Вы — Ангел во плоти. Ну, или божий одуванчик")
+        div.qz-result-text
+          h1 Вы — Ангел во плоти. Ну, или божий одуванчик
+          p Какое-то описание
+          button.qz-button.qz-button-restart(type="button") Пройти заново
+          button.qz-button-fb(type="button") FB
       .qz-result.qz-result-normal
-        h1 Вы — волк в овечьей шкуре
-        p Какое-то описание
-        button.qz-button.qz-button-restart(type="button") Пройти заного
+        div.qz-result-pic-wrap
+          img.qz-result-pic(src="http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg", alt="Вы — Ангел во плоти. Ну, или божий одуванчик")
+        div.qz-result-text
+          h1 Вы — волк в овечьей шкуре
+          p Какое-то описание
+          button.qz-button.qz-button-restart(type="button") Пройти заново
       .qz-result.qz-result-good
-        h1 Вы — адвокат дьявола
-        p Какое-то описание
-        button.qz-button.qz-button-restart(type="button") Пройти заного
+        div.qz-result-pic-wrap
+          img.qz-result-pic(src="http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg", alt="Вы — Ангел во плоти. Ну, или божий одуванчик")
+        div.qz-result-text
+          h1 Вы — адвокат дьявола
+          p Какое-то описание
+          button.qz-button.qz-button-restart(type="button") Пройти заново
       .qz-result.qz-result-excelent
-        h1 Вы не перешли на тёмную сторону. Вы и есть тёмная сторона
-        p Какое-то описание
-        button.qz-button.qz-button-restart(type="button") Пройти заного
+        div.qz-result-pic-wrap
+          img.qz-result-pic(src="http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg", alt="Вы — Ангел во плоти. Ну, или божий одуванчик")
+        div.qz-result-text
+          h1 Вы не перешли на тёмную сторону. Вы и есть тёмная сторона
+          p Какое-то описание
+          button.qz-button.qz-button-restart(type="button") Пройти заново
       .qz-question.qz-bg_01
-        .qz-question-title
+        .qz-question-title(style="background-image:url(http://www.klerk.ru/img/pb/original/0a_8726.jpg);")
           span.qz-question-number 1/10
           span.qz-question-text В период первобытнообщинного строя горшки лепили из глины, песка и:
         .qz-question-answers
@@ -44,7 +56,7 @@ block content
                 label(for="q1_b") Цемента
           button.qz-button.qz-button-check(type="button") ответ
       .qz-question.qz-bg_04
-        .qz-question-title
+        .qz-question-title(style="background-image:url(http://www.klerk.ru/img/pb/original/0a_8726.jpg);")
           span.qz-question-number 4/10
           span.qz-question-text Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный вопрос
         .qz-question-answers
