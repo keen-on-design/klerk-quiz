@@ -102,11 +102,6 @@
 	position: absolute;
 	left: -20px;
 	top: 6px;
-	text-align: center;
-    font-size: 30px;
-    line-height: 14px;
-    font-weight: bold;
-    color: #fff;
 	background: #fff;
 	border: 2px #373c4d solid;
 	box-sizing: border-box;
@@ -156,7 +151,7 @@
 	content: "";
     position: absolute;
     z-index: 1;
-    background: #149214;
+    background: rgb(108,115,141);
 }
 
 .qz-answer-button input:checked + label span:before {   
@@ -183,9 +178,11 @@
 	transform: rotate(-65deg);
 }
 
+/*
 .qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:after, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:after {
-	background: rgba(20,146,20,0.4);
+	 background: rgba(108,115,141,0.4);
 }
+*/
 
 .qz-button-fb {
 	font-size: 0;

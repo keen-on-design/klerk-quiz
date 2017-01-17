@@ -377,7 +377,7 @@ Utils.compare = function(obj1, obj2) {
   });
 
   var quiz = new Quiz('quiz__container', [
-    ["a","c"],"c","c","c","d","c","b","a","b","b","c","b","c","b","a","a"
+    "c","c","c","d","c","b","a","b","b","c","b","c","b","a","a"
   ], {
     // Automatically add question index
     onInit : function () {
