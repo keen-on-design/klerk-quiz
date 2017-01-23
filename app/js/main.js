@@ -50,6 +50,7 @@ var Quiz = function(quizContainer, answers, config) {
     QUESTION_ANSWERS: "qz-question-answers",
     QUESTION_WARNING: "qz-question-warning",
     CORRECT: "qz-correct",
+    ELSE: "qz-else",
     MISSING: "qz-correct-missing",
     INCORRECT: "qz-incorrect",
     TEMP: "qz-temp"
@@ -438,8 +439,8 @@ Utils.compare = function(obj1, obj2) {
 
     $.each(inputs, function (index, input) {
       var self = $(input);
-      self.parent().removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING);
-      self.removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING);
+      self.parent().removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING).removeClass(quiz.Classes.ELSE);
+      self.removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING).removeClass(quiz.Classes.ELSE);
       self.prop('checked', false);
     });
 
@@ -447,13 +448,12 @@ Utils.compare = function(obj1, obj2) {
     $('.qz-opener').addClass('active');
   });
 
-  $.each($('.qz-button-check'), function () {
-    var self       = $(this),
+  $.each($('.qz-answer-button > input'), function () {
+    var self = $(this),
       questionNode = self.closest('.' + quiz.Classes.QUESTION),
       index        = questionNode.index('.' + quiz.Classes.QUESTION);
 
     if (quiz.hasQuestion(index)) {
-
       self.click(function () {
         var userAnswers = quiz.getUserAnswer(index),
           correctAnswers = quiz.getCorrectAnswer(index);
@@ -470,15 +470,24 @@ Utils.compare = function(obj1, obj2) {
           correctAnswers = [correctAnswers];
         }
 
-        questionNode.find('input').bind("click.quiz-events", function (event) {
-          event.preventDefault();
+        questionNode.find('.qz-button-next').addClass('active');
+
+        $.each(questionNode.find('input'), function (index, value) {
+          var self = $(value);
+          self.parent().addClass(quiz.Classes.ELSE)
+          self.bind('click.quiz-events', function (event) {
+            console.log('prevent');
+            event.preventDefault();
+          });
         });
 
         $.each(userAnswers, function (index, value) {
           var input = $(questionNode.find('input[value="' + value + '"]'));
           if ($.inArray(value, correctAnswers) !== -1) {
+            input.parent().removeClass(quiz.Classes.ELSE);
             input.parent().addClass(quiz.Classes.CORRECT);
           } else {
+            input.parent().removeClass(quiz.Classes.ELSE);
             input.parent().addClass(quiz.Classes.INCORRECT);
           }
         });
@@ -486,22 +495,31 @@ Utils.compare = function(obj1, obj2) {
         $.each(correctAnswers, function (index, value) {
           var input = $(questionNode.find('input[value="' + value + '"]'));
           if ($.inArray(value, userAnswers) === -1) {
+            input.parent().removeClass(quiz.Classes.ELSE);
             input.parent().addClass(quiz.Classes.MISSING);
           }
         });
+      });
+    }
+  });
 
-        window.setTimeout(function () {
+  $.each($('.qz-button-next'), function () {
+    var self       = $(this),
+      questionNode = self.closest('.' + quiz.Classes.QUESTION),
+      index        = questionNode.index('.' + quiz.Classes.QUESTION);
 
-          questionNode.find('input').unbind('click.quiz-events');
+    if (quiz.hasQuestion(index)) {
 
-          if (quiz.hasQuestion(index + 1)) {
-            $(quiz.getQuestionNode(index)).removeClass('active');
-            $(quiz.getQuestionNode(index + 1)).addClass('active');
-          } else {
-            $(quiz.getQuestionNode(index)).removeClass('active');
-            quizResult();
-          }
-        }, 2000);
+      self.click(function () {
+        questionNode.find('input').unbind('click.quiz-events');
+
+        if (quiz.hasQuestion(index + 1)) {
+          $(quiz.getQuestionNode(index)).removeClass('active');
+          $(quiz.getQuestionNode(index + 1)).addClass('active');
+        } else {
+          $(quiz.getQuestionNode(index)).removeClass('active');
+          quizResult();
+        }
 
       });
     }
