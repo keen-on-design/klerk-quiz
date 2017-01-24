@@ -34,7 +34,8 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		min-height: 300px;
+		height: 350px;
+		box-sizing: border-box;
 		color: #fff;
 		padding: 10px 0;
 		background-color: lighten(#000, 10%);
@@ -86,7 +87,8 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	align-items: center;
 	justify-content: center;
 	color: #fff;
-	height: 300px;
+	height: 350px;
+	box-sizing: border-box;
 	padding: 10px 0;
 	position: relative;
 
@@ -114,7 +116,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 
 	.qz-result-text {
 		position: relative;
-		display: table;
+		width: 100%;
 		text-align: center;
 	}
 }
@@ -157,6 +159,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	color: #fff;
 	position: relative;
 	height: 350px;
+	box-sizing: border-box;
 	padding: 10px 0;
 	display: flex;
 	align-items: center;
@@ -185,9 +188,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	left: 50%;
 	top: 10px;
 	margin-left: -15px;
-
 	border: 1px solid rgba(255, 255, 255, .5);
-
 }
 
 .qz-question-text {
@@ -221,7 +222,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 .qz-correct, .qz-correct-missing {
 	color: $qz-color-correct;
 
-	&.qz-radio {
+	&.qz-radio, &.qz-checkbox {
 		label {
 			&:before {
 				width: 26px;
@@ -233,7 +234,6 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 
 			span {
 				&:before, &:after {
-
 					content: '';
 					display: block;
 					position: absolute;
@@ -262,7 +262,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 .qz-incorrect {
 	color: #b32d2d;
 
-	&.qz-radio {
+	&.qz-radio, &.qz-checkbox {
 		label {
 			&:before {
 				width: 26px;
@@ -313,7 +313,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 .qz-correct-missing {
 	color: $qz-color-correct;
 
-	&.qz-radio {
+	&.qz-radio, &.qz-checkbox {
 		label:before {
 			width: 26px;
 			height: 26px;
@@ -321,6 +321,12 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 			border-color: $qz-color-correct;
 		}
 	}
+
+	&.qz-checkbox label {
+		&:before {
+			border-style: dotted;
+		}
+	}	
 }
 
 .qz-button-next {

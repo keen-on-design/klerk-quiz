@@ -38,6 +38,8 @@ var Quiz = function(quizContainer, answers, config) {
    * @final
    */
 
+   
+
   var defaults = {
     onInit : function () {}
   };
@@ -378,7 +380,7 @@ Utils.compare = function(obj1, obj2) {
   });
 
   var quiz = new Quiz('quiz__container', [
-    "c","c","c","d","c","b","a","b","b","c","b","c","b","a","a"
+    "c","c","c","d","c","b","a","b","b","c","b","c","b","a","a",["a","c"]
   ], {
     // Automatically add question index
     onInit : function () {
@@ -533,7 +535,6 @@ Utils.compare = function(obj1, obj2) {
       description: $(this).closest('.qz-result').find('p').html(),
       picture: $(this).closest('.qz-result').find('.qz-result-pic').attr('src')
     };
-    console.log(config);
     FB.ui(config);
   });
 
