@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>keen builder main page
+		</title>
+		<meta content="" name="autor">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<meta content="ie=edge" http-equiv="x-ua-compatible">
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&amp;subset=latin,cyrillic">
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans+Caption">
+		<link rel="stylesheet" href="css/style.css"><!--[if lt IE 9]>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script><![endif]-->
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5a12a6">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+	<body>
+		<section>
+			<script>
+			var Share = {
+			    vkontakte: function(purl, ptitle, pimg, text) {
+			        url  = 'http://vkontakte.ru/share.php?';
+			        url += 'url='          + encodeURIComponent(purl);
+			        url += '&title='       + encodeURIComponent(ptitle);
+			        url += '&description=' + encodeURIComponent(text);
+			        url += '&image='       + encodeURIComponent(pimg);
+			        url += '&noparse=true';
+			        Share.popup(url);
+			    },
+			    odnoklassniki: function(purl, text) {
+			        url  = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1';
+			        url += '&st.comments=' + encodeURIComponent(text);
+			        url += '&st._surl='    + encodeURIComponent(purl);
+			        Share.popup(url);
+			    },
+			    facebook: function(purl, ptitle, pimg, text) {
+			        url  = 'http://www.facebook.com/sharer.php?s=100';
+			        url += '&p[title]='     + encodeURIComponent(ptitle);
+			        url += '&p[summary]='   + encodeURIComponent(text);
+			        url += '&p[url]='       + encodeURIComponent(purl);
+			        url += '&p[images][0]=' + encodeURIComponent(pimg);
+			        Share.popup(url);
+			    },
+			    twitter: function(purl, ptitle) {
+			        url  = 'http://twitter.com/share?';
+			        url += 'text='      + encodeURIComponent(ptitle);
+			        url += '&url='      + encodeURIComponent(purl);
+			        url += '&counturl=' + encodeURIComponent(purl);
+			        Share.popup(url);
+			    },
+			    mailru: function(purl, ptitle, pimg, text) {
+			        url  = 'http://connect.mail.ru/share?';
+			        url += 'url='          + encodeURIComponent(purl);
+			        url += '&title='       + encodeURIComponent(ptitle);
+			        url += '&description=' + encodeURIComponent(text);
+			        url += '&imageurl='    + encodeURIComponent(pimg);
+			        Share.popup(url);
+			    },
+			    
+			    gp: function(purl) {
+			        url  = 'https://plus.google.com/share?';
+			        url += 'url='          + encodeURIComponent(purl);
+			        Share.popup(url);
+			    },
+
+			    popup: function(url) {
+			        window.open(url,'','toolbar=0,status=0,width=626,height=436');
+			    }
+			  };
+			</script>
+			<div class="qz__container" id="quiz__container">
+				<div class="qz-opener active">
+					<div class="qz-cover" style="background-image:url(http://www.klerk.ru/img/pb/original/0a_8726.jpg);">
+						<h1>Проверьте свои знания об&nbsp;УСН в&nbsp;2017&nbsp;году</h1>
+						<p>Все знаете об&nbsp;изменения в&nbsp;упрощенной системе налогообложения в&nbsp;2017&nbsp;году? Предлагаем проверить свою уверенность, ответив на&nbsp;15&nbsp;вопросов теста.</p>
+						<button class="qz-button qz-button-start" type="button">Начать тест</button>
+					</div>
+
+					<div class="qz-introtext">
+						<p>При&nbsp;ответах на&nbsp;вопросы следует учитывать, что тест составлен по&nbsp;Налоговому кодексу в&nbsp;редакции, действующей в&nbsp;2017&nbsp;году. Если совсем неуверенно себя чувствуете, то&nbsp;начните со&nbsp;чтения свежей статьи: <a href="http://www.klerk.ru/buh/articles/455948/">УСН с&nbsp;объектом налогообложения «Доходы»: как заполнить декларацию за&nbsp;2016&nbsp;год</a>.</p>
+						<p>Не&nbsp;забудьте поделиться результатом, мы должны его знать!</p>
+					</div>
+				</div>
+				<div class="qz-result qz-result-poor">
+					<div class="qz-result-pic-wrap"><img class="qz-result-pic" src="http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg" /></div>
+					<div class="qz-result-text">
+						<h1>К сожалению, неуд. Похоже, Вы никогда не читали главу 26.2 НК.</h1>
+
+						<button class="qz-button qz-button-restart" type="button">Пройти заново</button>
+						<button class="qz-button-network qz-button-fb" type="button">FB</button>
+						<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'К сожалению, неуд.','http://www.klerk.ru/img/pb/original/qzresultpoor_5041.jpg','Похоже, Вы никогда не читали главу 26.2 НК.')">VK</button>
+					</div>	
+				</div>
+				<div class="qz-result qz-result-normal">
+					<div class="qz-result-pic-wrap"><img class="qz-result-pic" src="http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg" /></div>
+					<div class="qz-result-text">
+						<h1>Удовлетворительно. У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.</h1>
+
+						<button class="qz-button qz-button-restart" type="button">Пройти заново</button>
+						<button class="qz-button-network qz-button-fb" type="button">FB</button>
+						<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'Удовлетворительно.','http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg','У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.')">VK</button>
+					</div>	
+				</div>
+				<div class="qz-result qz-result-good">
+					<div class="qz-result-pic-wrap"><img class="qz-result-pic" src="http://www.klerk.ru/img/pb/original/qzresultgood_9087.jpg" /></div>
+					<div class="qz-result-text">
+						<h1>Хорошо! Вы неплохо знаете упрощёнку, но Вам есть к чему стремиться.</h1>
+					
+						<button class="qz-button qz-button-restart" type="button">Пройти заново</button>
+						<button class="qz-button-network qz-button-fb" type="button">FB</button>
+						<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'Хорошо!','http://www.klerk.ru/img/pb/original/qzresultgood_9087.jpg','Вы неплохо знаете упрощёнку, но Вам есть к чему стремиться.')">VK</button>
+					</div>	
+				</div>
+				<div class="qz-result qz-result-excelent">
+					<div class="qz-result-pic-wrap"><img class="qz-result-pic" src="http://www.klerk.ru/img/pb/original/qzresultexcelent_9739.jpg" /></div>
+					<div class="qz-result-text">
+						<h1>Отлично! Вы знаете упрощенную систему налогообложения практически в совершенстве.</h1>				
+
+						<button class="qz-button qz-button-restart" type="button">Пройти заново</button>
+						<button class="qz-button-network qz-button-fb" type="button">FB</button>
+						<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'Отлично!','http://www.klerk.ru/img/pb/original/qzresultexcelent_9739.jpg','Вы знаете упрощенную систему налогообложения практически в совершенстве.')">VK</button>
+					</div>	
+				</div>
+
+				<!-- 1 -->
+				<div class="qz-question qz-bg_01">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/01_7243.jpg);"><span class="qz-question-number">1/15</span><span class="qz-question-text">Кто из&nbsp;нижеперечисленных налогоплательщиков имеет право применять УСН:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q1" value="a" id="q1_a">
+									<label for="q1_a"><span></span>Микрофинансовая организация вне зависимости от&nbsp;<nobr>организационно-правовой</nobr> формы</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q1" value="b" id="q1_b">
+									<label for="q1_b"><span></span>ООО со&nbsp;стопроцентной долей в&nbsp;УК, принадлежащей автономной некоммерческой организации</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q1" value="c" id="q1_c">
+									<label for="q1_c"><span></span>Ассоциация, членами которой являются только юридические лица</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q1" value="d" id="q1_d">
+									<label for="q1_d"><span></span>Все вышеперечисленные не&nbsp;имеют права применять</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //1 -->
+
+				<!-- 2 -->
+				<div class="qz-question qz-bg_02">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/02_4444.jpg);"><span class="qz-question-number">2/15</span><span class="qz-question-text">Организация имеет право перейти на&nbsp;УСН с&nbsp;1&nbsp;января 2018&nbsp;года, если по&nbsp;итогам 9&nbsp;месяцев 2017&nbsp;года выручка, определяемая в&nbsp;соответствии со&nbsp;ст.248&nbsp;НК не&nbsp;превышает:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q2" value="a" id="q2_a">
+									<label for="q2_a"><span></span>45&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q2" value="b" id="q2_b">
+									<label for="q2_b"><span></span>90&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q2" value="c" id="q2_c">
+									<label for="q2_c"><span></span>112,5&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q2" value="d" id="q2_d">
+									<label for="q2_d"><span></span>160,3&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //2 -->
+
+				<!-- 3 -->
+				<div class="qz-question qz-bg_03">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/03_1373.jpg);"><span class="qz-question-number">3/15</span><span class="qz-question-text">Лимит по&nbsp;остаточной стоимости основных средств, при&nbsp;котором можно применять УСН, составляет:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q3" value="a" id="q3_a">
+									<label for="q3_a"><span></span>60&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q3" value="b" id="q3_b">
+									<label for="q3_b"><span></span>100&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q3" value="c" id="q3_c">
+									<label for="q3_c"><span></span>150&nbsp;млн&nbsp;руб.</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q3" value="d" id="q3_d">
+									<label for="q3_d"><span></span>Лимит отменили с&nbsp;2017&nbsp;года</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //3 -->
+
+				<!-- 4 -->
+				<div class="qz-question qz-bg_04">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/04_95.jpg);"><span class="qz-question-number">4/15</span><span class="qz-question-text">Ставка по&nbsp;упрощенной системе налогообложения при&nbsp;объекте «доходы» составляет:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q4" value="a" id="q4_a">
+									<label for="q4_a"><span></span>15%</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q4" value="b" id="q4_b">
+									<label for="q4_b"><span></span>6%</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q4" value="c" id="q4_c">
+									<label for="q4_c"><span></span>3%</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q4" value="d" id="q4_d">
+									<label for="q4_d"><span></span>От&nbsp;0% до&nbsp;6%, в&nbsp;зависимости от&nbsp;регионального законодательства</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //4 -->
+
+				<!-- 5 -->
+				<div class="qz-question qz-bg_05">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/05_573.jpg);"><span class="qz-question-number">5/15</span><span class="qz-question-text">Товары, купленные для&nbsp;перепродажи, списываются в&nbsp;расходы при&nbsp;УСН при&nbsp;соблюдении следующих условий:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q5" value="a" id="q5_a">
+									<label for="q5_a"><span></span>Товар оплачен поставщику</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q5" value="b" id="q5_b">
+									<label for="q5_b"><span></span>Товар оплачен поставщику оприходован</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q5" value="c" id="q5_c">
+									<label for="q5_c"><span></span>Товар оплачен поставщику, оприходован и&nbsp;отгружен покупателю</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q5" value="d" id="q5_d">
+									<label for="q5_d"><span></span>Товар оплачен поставщику, оприходован, отгружен покупателю и&nbsp;получена оплата от&nbsp;покупателя</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //5 -->
+
+				<!-- 6 -->
+				<div class="qz-question qz-bg_06">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/06_4624.jpg);"><span class="qz-question-number">6/15</span><span class="qz-question-text">При&nbsp;УСН 15% материалы списываются в&nbsp;расходы при&nbsp;следующих условиях:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q6" value="a" id="q6_a">
+									<label for="q6_a"><span></span>Материалы оплачены поставщику</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q6" value="b" id="q6_b">
+									<label for="q6_b"><span></span>Материалы оплачены поставщику и&nbsp;оприходованы</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q6" value="c" id="q6_c">
+									<label for="q6_c"><span></span>Материалы оплачены поставщику, оприходованы и&nbsp;списаны в&nbsp;производство</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q6" value="d" id="q6_d">
+									<label for="q6_d"><span></span>Материалы оплачены поставщику, оприходованы, списаны в&nbsp;производство и&nbsp;произведенный товар продан</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //6 -->
+
+				<!-- 7 -->
+				<div class="qz-question qz-bg_07">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/07_6371.jpg);"><span class="qz-question-number">7/15</span><span class="qz-question-text">Индивидуальный предприниматель, применяющий УСН с&nbsp;объектом «доходы», в&nbsp;середине года заключил договор доверительного управления имуществом. Что произойдет у&nbsp;него с &nbsp;системой налогообложения?</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q7" value="a" id="q7_a">
+									<label for="q7_a"><span></span>Он потеряет право применять УСН и&nbsp;перейдет на&nbsp;ОСНО</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q7" value="b" id="q7_b">
+									<label for="q7_b"><span></span>Он потеряет право применять УСН с&nbsp;объектом «доходы» и&nbsp;сможет продолжить применять УСН с&nbsp;объектом «доходы минус расходы»</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q7" value="c" id="q7_c">
+									<label for="q7_c"><span></span>Ничего не&nbsp;произойдет, он сможет дальше применять УСН с&nbsp;объектом «доходы»</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q7" value="d" id="q7_d">
+									<label for="q7_d"><span></span>При&nbsp;УСН запрещено заключать договоры доверительного управления имуществом</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //7 -->
+
+				<!-- 8 -->
+				<div class="qz-question qz-bg_08">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/08_1991.jpg);"><span class="qz-question-number">8/15</span><span class="qz-question-text">В&nbsp;каком случае организация, применяющая УСН, уплачивает налог на&nbsp;имущество организаций?</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q8" value="a" id="q8_a">
+									<label for="q8_a"><span></span>В&nbsp;любом случае организация неплательщик этого налога</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q8" value="b" id="q8_b">
+									<label for="q8_b"><span></span>Если у&nbsp;организации имеется имущество, облагаемое налогом на&nbsp;имущество исходя из&nbsp;кадастровой стоимости недвижимости</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q8" value="c" id="q8_c">
+									<label for="q8_c"><span></span>Если у&nbsp;организации имеется только движимое имущество, приобретенное до&nbsp;1&nbsp;января 2013&nbsp;года</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q8" value="d" id="q8_d">
+									<label for="q8_d"><span></span>Организации на&nbsp;УСН платят налог на&nbsp;имущество на&nbsp;общих основаниях, так&nbsp;же, как и&nbsp;при&nbsp;других системах налогообложения</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //8 -->
+
+				<!-- 9 -->
+				<div class="qz-question qz-bg_09">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/09_5646.jpg);"><span class="qz-question-number">9/15</span><span class="qz-question-text">Организация на&nbsp;УСН имеет обособленное подразделение (не&nbsp;филиал и&nbsp;не&nbsp;представительство), выделенное на&nbsp;отдельный баланс и&nbsp;имеющее отдельный расчетный счет. В&nbsp;каком порядке подаются налоговые декларации по&nbsp;УСН?</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q9" value="a" id="q9_a">
+									<label for="q9_a"><span></span>Подается две налоговых декларации&nbsp;&mdash; одна по&nbsp;месту регистрации организации, вторая по&nbsp;месту регистрации обособленного подразделения</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q9" value="b" id="q9_b">
+									<label for="q9_b"><span></span>Подается одна налоговая декларация по&nbsp;месту регистрации организации. Данные по&nbsp;«голове» и&nbsp;обособленному подразделению в&nbsp;ней отдельно не&nbsp;показываются</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q9" value="c" id="q9_c">
+									<label for="q9_c"><span></span>Подается одна налоговая декларация по&nbsp;месту регистрации организации. При&nbsp;этом в&nbsp;ней указываются в&nbsp;разных разделах данные по&nbsp;«голове» и&nbsp;по&nbsp;обособленному подразделению раздельно</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q9" value="d" id="q9_d">
+									<label for="q9_d"><span></span>У&nbsp;организации на&nbsp;УСН не&nbsp;может быть обособленных подразделений, поэтому вопрос некорректен</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //9 -->
+
+				<!-- 10 -->
+				<div class="qz-question qz-bg_10">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/10_4582.jpg);"><span class="qz-question-number">10/15</span><span class="qz-question-text">Плательщики торгового сбора могут уменьшить налог по&nbsp;УСН с&nbsp;объектом налогообложения «доходы», рассчитанный по&nbsp;деятельности, облагаемой торговым сбором, в&nbsp;пределах:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q10" value="a" id="q10_a">
+									<label for="q10_a"><span></span>30% от&nbsp;исчисленного налога</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q10" value="b" id="q10_b">
+									<label for="q10_b"><span></span>50% от&nbsp;исчисленного налога</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q10" value="c" id="q10_c">
+									<label for="q10_c"><span></span>Предела нет, налог можно уменьшить вплоть до&nbsp;нуля</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q10" value="d" id="q10_d">
+									<label for="q10_d"><span></span>На&nbsp;торговый сбор вообще нельзя уменьшить налог по&nbsp;УСН</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //10 -->
+
+				<!-- 11 -->
+				<div class="qz-question qz-bg_11">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/11_576.jpg);"><span class="qz-question-number">11/15</span><span class="qz-question-text">Основные средства, приобретенные во&nbsp;время применения УСН 15%, принимаются в&nbsp;расходы в&nbsp;следующем порядке:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q11" value="a" id="q11_a">
+									<label for="q11_a"><span></span>В&nbsp;полном размере в&nbsp;момент ввода этих основных средств в&nbsp;эксплуатацию</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q11" value="b" id="q11_b">
+									<label for="q11_b"><span></span>С&nbsp;момента ввода этих основных средств в&nbsp;эксплуатацию равными долями поквартально до&nbsp;конца налогового периода в&nbsp;размере оплаченных сумм</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q11" value="c" id="q11_c">
+									<label for="q11_c"><span></span>В&nbsp;течение первого календарного года после ввода в&nbsp;эксплуатацию&nbsp;&mdash; 50% стоимости, второго календарного года&nbsp;&mdash; 30% стоимости и&nbsp;третьего календарного года&nbsp;&mdash; 20% стоимости</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q11" value="d" id="q11_d">
+									<label for="q11_d"><span></span>Расходы на&nbsp;приобретение ОС в&nbsp;расходы при&nbsp;УСН 15% не&nbsp;включаются</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //11 -->
+
+				<!-- 12 -->
+				<div class="qz-question qz-bg_12">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/12_4337.jpg);"><span class="qz-question-number">12/15</span><span class="qz-question-text">ООО&nbsp;«Ромашка», находящееся на&nbsp;УСН, является одним из&nbsp;учредителей организации «Лютик», находящейся так&nbsp;же на&nbsp;УСН. Какой налог организация «Лютик» должна удержать с&nbsp;организации «Ромашка» как налоговый агент при&nbsp;выплате части чистой прибыли, распределенной участниками?</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q12" value="a" id="q12_a">
+									<label for="q12_a"><span></span>Никакой, организации сами платят свои налоги</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q12" value="b" id="q12_b">
+									<label for="q12_b"><span></span>Налог по&nbsp;УСН</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q12" value="c" id="q12_c">
+									<label for="q12_c"><span></span>Налог на&nbsp;прибыль</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q12" value="d" id="q12_d">
+									<label for="q12_d"><span></span>НДС</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //12 -->
+
+				<!-- 13-->
+				<div class="qz-question qz-bg_13">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/13_5099.jpg);"><span class="qz-question-number">13/15</span><span class="qz-question-text">Что из&nbsp;нижеперечисленного включается в&nbsp;расходы при&nbsp;УСН:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q13" value="a" id="q13_a">
+									<label for="q13_a"><span></span>Единый налог по&nbsp;упрощенной системе налогообложения</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q13" value="b" id="q13_b">
+									<label for="q13_b"><span></span>НДС, уплаченный налогоплательщиком УСН в&nbsp;качестве налогового агента</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q13" value="c" id="q13_c">
+									<label for="q13_c"><span></span>НДФЛ, удержанный из&nbsp;доходов участника (учредителя) общества при&nbsp;выплате ему дивидендов</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q13" value="d" id="q13_d">
+									<label for="q13_d"><span></span>Ничего из&nbsp;вышеперечисленного нельзя включить в&nbsp;расходы</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //13 -->
+
+				<!-- 14-->
+				<div class="qz-question qz-bg_14">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/14_1128.jpg);"><span class="qz-question-number">14/15</span><span class="qz-question-text">Организация, применяющая УСН 15%, вернула полученный в&nbsp;прошлом налоговом периоде аванс от&nbsp;покупателя. Как этот возврат отражается в&nbsp;книге доходов и&nbsp;расходов:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q14" value="a" id="q14_a">
+									<label for="q14_a"><span></span>Сумма возвращенного аванса указывается в&nbsp;графе «Доходы» с&nbsp;минусом в&nbsp;день возврата</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q14" value="b" id="q14_b">
+									<label for="q14_b"><span></span>Сумма возвращенного аванса указывается в&nbsp;графе «Расходы» в&nbsp;день возврата</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q14" value="c" id="q14_c">
+									<label for="q14_c"><span></span>Исправляется сумма полученного ранее аванса, по&nbsp;правилам внесения исправлений в&nbsp;книгу ДиР. Декларацию за&nbsp;период, в&nbsp;котором был получен аванс и&nbsp;исчислен налог, придется пересдать</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q14" value="d" id="q14_d">
+									<label for="q14_d"><span></span>Никак не&nbsp;отражается. Нельзя учесть возврат в&nbsp;таком случае</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //14 -->
+
+				<!-- 15-->
+				<div class="qz-question qz-bg_15">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/15_9113.jpg);"><span class="qz-question-number">15/15</span><span class="qz-question-text">Обязаны&nbsp;ли организации на&nbsp;УСН вести бухгалтерский учет:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q15" value="a" id="q15_a">
+									<label for="q15_a"><span></span>Да, обязаны</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q15" value="b" id="q15_b">
+									<label for="q15_b"><span></span>Акционерные общества обязаны, ООО не&nbsp;обязаны</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q15" value="c" id="q15_c">
+									<label for="q15_c"><span></span>Все коммерческие организации обязаны, некоммерческие могут не&nbsp;вести</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-radio">
+									<input type="radio" name="q15" value="d" id="q15_d">
+									<label for="q15_d"><span></span>Нет, не&nbsp;обязаны</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //15 -->
+
+				<!-- 16 test checkbox -->
+				<div class="qz-question qz-bg_16">
+					<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/15_9113.jpg);"><span class="qz-question-number">15/15</span><span class="qz-question-text">Тестовый вопрос:</span></div>
+					<div class="qz-question-answers">
+						<ul>
+							<li>
+								<div class="qz-answer-button qz-checkbox">
+									<input type="checkbox" name="q16" value="a" id="q16_a">
+									<label for="q16_a"><span></span>Ответ 1</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-checkbox">
+									<input type="checkbox" name="q16" value="b" id="q16_b">
+									<label for="q16_b"><span></span>Ответ 2</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-checkbox">
+									<input type="checkbox" name="q16" value="c" id="q16_c">
+									<label for="q16_c"><span></span>Ответ 3</label>
+								</div>
+							</li>
+							<li>
+								<div class="qz-answer-button qz-checkbox">
+									<input type="checkbox" name="q16" value="d" id="q16_d">
+									<label for="q16_d"><span></span>Ответ 4</label>
+								</div>
+							</li>
+						</ul>
+						<button class="qz-button qz-button-next" type="button">Дальше</button>
+					</div>
+				</div>
+				<!-- //16 -->
+
+
+
+			</div>
+		</section>
+		<!-- build:js js/plugins.main.min.js -->
+		<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+		<!-- endbuild -->
+		<script src="http://connect.facebook.net/en_US/sdk.js"></script>
+		<script src="js/app.min.js"></script>
+	</body>
+</html>

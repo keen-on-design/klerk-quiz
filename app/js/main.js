@@ -11,7 +11,7 @@
  * @example
  * 		new Quiz('quiz-div', ['a', '7', ['c', 'd'], 'squids', ['a', 'b']]);
  */
-var Quiz = function(quizContainer, answers) {
+var Quiz = function(quizContainer, answers, config) {
   /**
    * Enum containing classes used by QuizLib as follows:
    * - **QUESTION**: 'quizlib-question'
@@ -37,12 +37,23 @@ var Quiz = function(quizContainer, answers) {
    * @default See above
    * @final
    */
+
+   
+
+  var defaults = {
+    onInit : function () {}
+  };
+
+  this.config = $.extend(defaults, config);
+
   this.Classes = Object.freeze({
     QUESTION: "qz-question",
     QUESTION_TITLE: "qz-question-title",
     QUESTION_ANSWERS: "qz-question-answers",
     QUESTION_WARNING: "qz-question-warning",
     CORRECT: "qz-correct",
+    ELSE: "qz-else",
+    MISSING: "qz-correct-missing",
     INCORRECT: "qz-incorrect",
     TEMP: "qz-temp"
   });
@@ -84,8 +95,21 @@ var Quiz = function(quizContainer, answers) {
   if (this.answers.length != this.questions.length) {
     throw new Error("Number of answers does not match number of questions!");
   }
+
+  this.config.onInit.call(this);
 };
 
+Quiz.prototype.getQuestionNode = function (index) {
+  if (this.hasQuestion(index)) {
+    return this.questions[index];
+  } else {
+    return false;
+  }
+};
+
+Quiz.prototype.hasQuestion = function (index) {
+  return this.questions[index] !== undefined;
+};
 
 Quiz.prototype.getUserAnswer = function (index) {
   if (this.questions[index] === undefined)  {
@@ -114,17 +138,26 @@ Quiz.prototype.getUserAnswer = function (index) {
 
 };
 
+Quiz.prototype.getCorrectAnswer = function (index) {
+  if (this.answers[index] === undefined) {
+    return false;
+  }
+  return this.answers[index];
+};
 
-Quiz.prototype.checkAnswer = function(index) {
+Quiz.prototype.checkAnswer = function(index, givenAnswer) {
   if (this.questions[index] === undefined || this.answers[index] === undefined) {
     return false;
   }
+  var answer = this.getCorrectAnswer(index);
+  return (answer === false) ? false : this.compareAnswers(answer, givenAnswer)
+};
 
-  var answer   = this.answers[index],
-    userAnswer = this.getUserAnswer(index);
-
-  //Compare user answer with correct one
-  return Utils.compare(userAnswer, answer);
+Quiz.prototype.compareAnswers = function (primaryAnswer, secondaryAnswer) {
+  if (primaryAnswer === undefined || secondaryAnswer === undefined) {
+    return false;
+  }
+  return Utils.compare(primaryAnswer, secondaryAnswer);
 };
 
 /**
@@ -340,12 +373,23 @@ Utils.compare = function(obj1, obj2) {
 };
 
 (function ($, Quiz) {
+
+  FB.init({
+    appId: 111067065633348,
+    version: 'v2.7'
+  });
+
   var quiz = new Quiz('quiz__container', [
-    'answer-a',
-    ['c', 'd'],
-    ['a', 'b', 'c'],
-    ['a']
-  ]);
+    "c","c","c","d","c","b","a","b","b","c","b","c","b","a","a",["a","c"]
+  ], {
+    // Automatically add question index
+    onInit : function () {
+      var questionsCount = this.questions.length;
+      $.each(this.questions, function (index, node) {
+        $(node).find('.qz-question-number').html((index + 1) + ' / ' + questionsCount);
+      });
+    }
+  });
 
   $('#kquiz__score-button').click(function () {
 
@@ -362,13 +406,136 @@ Utils.compare = function(obj1, obj2) {
     alert(message);
   });
 
-  $.each($('.qz-button-check'), function () {
-    var self = $(this);
-    self.click(function () {
-      if (self.data('question') !== undefined) {
-        alert(quiz.checkAnswer(parseInt(self.data('question'))));
-      }
+  $('.qz-button-start').click(function () {
+    var self = $(this),
+      parent = self.closest('.qz-opener');
+    parent.removeClass('active');
+    $(quiz.getQuestionNode(0)).addClass('active');
+  });
+
+  function quizResult() {
+    quiz.checkAnswers(false);
+    var result = quiz.result.scorePercentFormatted;
+    console.log(quiz.result.scorePercentFormatted);
+
+    if (result < 33) {
+      $('.qz-result-poor').addClass('active');
+    }
+
+    if (result >= 33 && result < 67) {
+      $('.qz-result-normal').addClass('active');
+    }
+
+    if (result >= 67 && result < 93) {
+      $('.qz-result-good').addClass('active');
+    }
+
+    if (result >= 93) {
+      $('.qz-result-excelent').addClass('active');
+    }
+  }
+
+  $('.qz-button-restart').click(function () {
+    var self = $(this),
+      inputs = self.closest('.qz__container').find('input');
+
+    $.each(inputs, function (index, input) {
+      var self = $(input);
+      self.parent().removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING).removeClass(quiz.Classes.ELSE);
+      self.removeClass(quiz.Classes.CORRECT).removeClass(quiz.Classes.INCORRECT).removeClass(quiz.Classes.MISSING).removeClass(quiz.Classes.ELSE);
+      self.prop('checked', false);
     });
+
+    self.closest('.qz-result').removeClass('active');
+    $('.qz-opener').addClass('active');
+  });
+
+  $.each($('.qz-answer-button > input'), function () {
+    var self = $(this),
+      questionNode = self.closest('.' + quiz.Classes.QUESTION),
+      index        = questionNode.index('.' + quiz.Classes.QUESTION);
+
+    if (quiz.hasQuestion(index)) {
+      self.click(function () {
+        var userAnswers = quiz.getUserAnswer(index),
+          correctAnswers = quiz.getCorrectAnswer(index);
+
+        if (userAnswers === false || correctAnswers === false) {
+          return;
+        }
+
+        if (!(userAnswers instanceof Array)) {
+          userAnswers = [userAnswers];
+        }
+
+        if (!(correctAnswers instanceof Array)) {
+          correctAnswers = [correctAnswers];
+        }
+
+        questionNode.find('.qz-button-next').addClass('active');
+
+        $.each(questionNode.find('input'), function (index, value) {
+          var self = $(value);
+          self.parent().addClass(quiz.Classes.ELSE)
+          self.bind('click.quiz-events', function (event) {
+            console.log('prevent');
+            event.preventDefault();
+          });
+        });
+
+        $.each(userAnswers, function (index, value) {
+          var input = $(questionNode.find('input[value="' + value + '"]'));
+          if ($.inArray(value, correctAnswers) !== -1) {
+            input.parent().removeClass(quiz.Classes.ELSE);
+            input.parent().addClass(quiz.Classes.CORRECT);
+          } else {
+            input.parent().removeClass(quiz.Classes.ELSE);
+            input.parent().addClass(quiz.Classes.INCORRECT);
+          }
+        });
+
+        $.each(correctAnswers, function (index, value) {
+          var input = $(questionNode.find('input[value="' + value + '"]'));
+          if ($.inArray(value, userAnswers) === -1) {
+            input.parent().removeClass(quiz.Classes.ELSE);
+            input.parent().addClass(quiz.Classes.MISSING);
+          }
+        });
+      });
+    }
+  });
+
+  $.each($('.qz-button-next'), function () {
+    var self       = $(this),
+      questionNode = self.closest('.' + quiz.Classes.QUESTION),
+      index        = questionNode.index('.' + quiz.Classes.QUESTION);
+
+    if (quiz.hasQuestion(index)) {
+
+      self.click(function () {
+        questionNode.find('input').unbind('click.quiz-events');
+
+        if (quiz.hasQuestion(index + 1)) {
+          $(quiz.getQuestionNode(index)).removeClass('active');
+          $(quiz.getQuestionNode(index + 1)).addClass('active');
+        } else {
+          $(quiz.getQuestionNode(index)).removeClass('active');
+          quizResult();
+        }
+
+      });
+    }
+  });
+
+  $('.qz-button-fb').click(function() {
+    var config = {
+      method: "feed",
+      link: window.location.href,
+      caption: $(this).closest('.qz-result').find('h1').html(),
+      description: $(this).closest('.qz-result').find('p').html(),
+      picture: $(this).closest('.qz-result').find('.qz-result-pic').attr('src')
+    };
+    FB.ui(config);
   });
 
 })($, Quiz);

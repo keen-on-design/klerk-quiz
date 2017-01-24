@@ -1,24 +1,43 @@
-.qz-button-check {
-	font: bold 14px/37px "PT Sans", Arial, sans-serif;
-	color: #fff;
-	letter-spacing: 1.2px;
-	text-transform: uppercase;
+.qz-button {
+	font: bold 14px/36px "PT Sans", Arial, sans-serif;
+	color: lighten(#373c4d, 60%);
+	letter-spacing: 1px;
 	display: block;
-	margin: 5px auto!important;
+	position: relative;
+	margin: 15px auto!important;
 	padding: 0 10px!important;
 	min-width: 100px;
 	cursor: pointer;
-	@include linear-gradient(#81d051 0%, #50a81b 50%, #4daf12 100%);
-	@include border-top-radius(5px);
-	@include border-bottom-radius(5px);
-	@include border-left-radius(5px);
-	@include border-right-radius(5px);
-	border: 1px transparent solid!important;
-	border-bottom: 1px #386601 solid!important;
+	@include border-top-radius(4px);
+	@include border-right-radius(4px);
+	@include border-bottom-radius(4px);
+	@include border-left-radius(4px);
+	border: 2px transparent solid!important;
+	background-color: lighten(#373c4d, 10%);
 	outline: none!important;
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+
+	&:hover {
+		background-color: #373c4d;
+	}
+}
+
+.qz-button-start, .qz-button-restart {
+	font: bold 16px/36px "PT Sans", serif;
+	@include border-top-radius(0);
+	@include border-right-radius(0);
+	@include border-bottom-radius(0);
+	@include border-left-radius(0);
+	border: 3px #4CAF50 solid!important;
+	color: #4CAF50;
+	width: 30%;
+	min-width: 100px;
+	background-color: transparent;
+
+	&:hover {
+		background-color: transparent;
+		width: 35%;
+	}
 }
 
 .qz-button-check:focus {
@@ -26,54 +45,109 @@
 	border-bottom: 1px #5b9418 solid!important;
 }
 
-.qz-answer-button {
-	color: #010101;
-	padding: 5px 10px;
-	margin: 0 10px 0 0;
-	height: 100%;
-	@include linear-gradient(#f1f1f1 0%, #f9f2e9 50%, #c5c0b9 100%);
+.qz-button-score {
+	font: bold 17px/37px "PT Sans", Arial, sans-serif;
+	color: #35730f;
+	letter-spacing: 1.3px;
+	text-transform: uppercase;
+	display: block;
+	margin: 0 auto!important;
+	padding: 0 10px!important;
+	min-width: 200px;
+	cursor: pointer;
+	@include linear-gradient(#f5f1f1 0%, #e2dfdf 50%, #dcdada 100%);
 	@include border-top-radius(5px);
 	@include border-bottom-radius(5px);
 	@include border-left-radius(5px);
 	@include border-right-radius(5px);
-	border-bottom: 1px #a3a09c solid;
+	border: 1px transparent solid!important;
+	border-bottom: 1px #777 solid!important;
+	outline: none!important;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.qz-answer-button {
+	color: #010101;
+	margin: 0 10px 0 0;
+	height: 100%;
+	/*@include linear-gradient(#d9d9d9 0%, #eee 45%, #c5c5c5 100%);
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
+	border: 2px transparent solid;
+	border-bottom: 2px #a3a09c solid;*/
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 
-.qz-answer-button input[type="checkbox"], .qz-answer-button input[type="radio"] {
-    margin: 0!important;
-    display: none;
-}
+	label {
+		font: normal 16px/19px "PT Serif", Arial, sans-serif;
+		cursor: pointer;
+		display: block;
+		height: 100%;
+		vertical-align: top;
+		position: relative;
+		margin: 0 0 0 30px;
+		padding: 5px 10px;
 
-.qz-answer-button label {
-	cursor: pointer;
-	display: -moz-inline-box;
-    display: inline-block;
-    vertical-align: top;   
-    position: relative;
-    margin: 0 0 0 30px;
-}
+		&:before {
+			content: "";
+			display: -moz-inline-box;
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+			position: absolute;
+			left: -20px;
+			top: 6px;
+			background: #fff;
+			border: 2px #373c4d solid;
+			box-sizing: border-box;
+			-webkit-transition: all 0.1s linear;
+			-moz-transition: all 0.1s linear;
+			-o-transition: all 0.1s linear;
+			transition: all 0.1s linear;
+		}
 
-.qz-answer-button label:before {
-	content: "";
-	display: -moz-inline-box;
-    display: inline-block;
-	width: 18px;
-	height: 18px;	
-	position: absolute;
-	left: -30px;
-	top: 1px;
-	text-align: center;
-    font-size: 30px;
-    line-height: 14px;
-    font-weight: bold;
-    color: #fff;
-	background: #373c4d;
-	-moz-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
-	-webkit-box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
-	box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,.7), 0px 1px 0px 0px rgba(255,255,255,.8);
+		span {
+			content: "";
+			width: 18px;
+			height: 18px;
+			position: absolute;
+			left: -20px;
+			top: 6px;
+			@include border-top-radius(50%);
+			@include border-bottom-radius(50%);
+			@include border-left-radius(50%);
+			@include border-right-radius(50%);
+		}
+	}
+
+	&:hover {
+		label:before {
+			border: 5px #6c738d solid;
+		}
+	}
+
+	/*input[type="radio"]:checked, input[type="checkbox"]:checked {
+		&+label:before {
+			margin-left: -4px;
+			margin-top: -4px;
+			width: 26px;
+			height: 26px;
+		}
+	}*/
+
+	input[type="checkbox"], input[type="radio"] {
+		margin: 0!important;
+		display: none;
+	}
 }
 
 .qz-radio label:before {
@@ -84,16 +158,45 @@
 }
 
 .qz-checkbox label:before {
-    @include border-top-radius(3px);
-	@include border-bottom-radius(3px);
-	@include border-left-radius(3px);
-	@include border-right-radius(3px);
+    @include border-top-radius(2px);
+	@include border-bottom-radius(2px);
+	@include border-left-radius(2px);
+	@include border-right-radius(2px);
 }
 
-.qz-answer-button input[type="radio"]:checked + label:before {
-    content: "\2022";
+/*
+.qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="radio"]:checked + label span:after, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:before, .qz-answer-button.qz-incorrect input[type="checkbox"]:checked + label span:after {
+	 background: rgba(108,115,141,0.4);
+}
+*/
+
+.qz-button-network {
+	font-size: 0;
+	width: 63px;
+	height: 63px;
+	margin: 5px!important;
+	padding: 0!important;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	border: none!important;
+	outline: none!important;	
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+
+    &:hover {
+    	-webkit-filter: saturate(150%);
+		filter: saturate(150%);
+    }
 }
 
-.qz-answer-button input[type="checkbox"]:checked + label:before {
-	content: "\2713";
+.qz-button-fb {
+	@include background-image(url("http://www.klerk.ru/img/pb/original/iconsinetwork_3440.png"));
+	background-position: 0 0;
+}
+
+.qz-button-vk {
+	@include background-image(url("http://www.klerk.ru/img/pb/original/iconsinetwork_3440.png"));
+	background-position: -198px 0;
 }
