@@ -22,10 +22,10 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 }
 
 .qz-opener {
-	display: flex;
+	/*display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: center;*/
 	position: relative;
 	display: none;
 
@@ -73,7 +73,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	}
 
 	&.active {
-		display: flex;
+		display: block;
 	}
 }
 
