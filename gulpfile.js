@@ -1,80 +1,76 @@
 'use strict';
+var gulp = require('gulp'),
+  util = require('gulp-util'),
+  config = require('./gulp/config');
 
-var plugins = require('gulp-load-plugins')({
-    DEBUG: false
-});
-
-//noinspection JSDuplicatedDeclaration,JSUnresolvedVariable
 global.$ = {
     package: require('./package.json'),
-    config: require('./gulp/config'),
 
-    releaseFlag  : require('gulp-util').env[require('./gulp/config').app.environment.releaseFlag] !== undefined,
+    // Global Browsersync instance.
+    browserSync: require('browser-sync').create(),
 
-    path: {
-        task: [
-            './gulp/c.tasks/clean.js',
-            './gulp/c.tasks/sass.js',
-            './gulp/c.tasks/fonts.js',
-            './gulp/custom/html.build.js',
-            './gulp/c.tasks/scripts.js',
-            './gulp/c.tasks/images.js',
-            './gulp/c.tasks/svg.js',
-            './gulp/c.tasks/serve.js',
-            './gulp/c.tasks/favicon.js',
-            './gulp/c.tasks/deploy.js'
-        ]
+    // Environment is stored in env property.
+    env: {
+        production: util.env[require('./gulp/config.env').flags.production] !== undefined,
+        debug: util.env[require('./gulp/config.env').flags.debug] !== undefined
     },
 
-    gulp        : require('gulp'),
-    rimraf      : require('rimraf'),
-    del         : require('del'),
-    vinylPaths  : require('vinyl-paths'),
-    fs          : {
-        utils: require('fs-utils'),
-        exists: require('file-exists')
-    },
-    console     : require('gulp-util'),
-    plugins     : plugins,
-    browserSync : require('browser-sync').create(),
-    ftp         : require('vinyl-ftp'),
-    argv        : require('yargs').argv
+    /**
+     * Task list. Is used to build common tasks.
+     * @property id Name of a task in a gulp pipeline. Optional: default value is set in a task file
+     * @property path Path to a task file
+     * @property config Task config. Optional: default config is set in a task file
+     */
+    tasks: [
+        // Generally tasks should be created with config from a global storage: gulp/config.js.
+        { id: 'js:lint', path: './gulp/c.tasks/eslint.js', config: config.lint },
+        { id: 'js:bundle', path: './gulp/c.tasks/bundle.js', config: config.bundle },
+        { id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.browserify },
+        { id: 'pug', path: './gulp/c.tasks/pug.js', config: config.pug },
+        { id: 'sass', path: './gulp/c.tasks/sass.js', config: config.sass },
+        { id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts },
+        { id: 'images', path: './gulp/c.tasks/images.js', config: config.images },
+        { id: 'svg:sprite', path: './gulp/c.tasks/svg.js', config: config.svgsprite },
+        { id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync },
+
+        // In some cases you can create tasks passing inline config to keep things simple and transparent.
+        { id: 'clean:dev', path: './gulp/c.tasks/clean.js', config: {destination: config.destPrd} },
+    ]
 };
 
-$.path.task.forEach(function (taskPath) {
-    require(taskPath)();
+$.tasks.forEach(function(task) {
+    // Gathering all tasks. Now you can use them in your pipeline. Don't forget to check log for warnings and errors.
+    require(task.path)(task.id, task.config);
 });
 
-$.gulp.task('watch', function () {
-    $.gulp.watch($.config.js.location, $.gulp.series('js:app'));
-    $.gulp.watch($.config.sass.location, $.gulp.series('sass:process'));
-    $.gulp.watch($.config.html.location, $.gulp.series('html:build'));
-    $.gulp.watch($.config.fonts.location, $.gulp.series('fonts'));
-    $.gulp.watch($.config.svg.location, $.gulp.series('svg:sprite'));
-    $.gulp.watch($.config.images.location, $.gulp.series('images:process'));
+/**
+ * This is your pipeline. Here нou can define additional tasks the way you are used to.
+ */
+
+gulp.task('watch', function () {
+    gulp.watch(config.browserify.location, gulp.series('js:lint', 'js:browserify'));
+    gulp.watch(config.vue.location, gulp.series('js:lint', 'js:browserify'));
+    gulp.watch(config.sass.location, gulp.series('sass'));
+    gulp.watch(config.pug.location, gulp.series('pug'));
+    gulp.watch(config.fonts.location, gulp.series('fonts'));
+    gulp.watch(config.svgsprite.location, gulp.series('svg:sprite'));
+    gulp.watch(config.images.location, gulp.series('images'));
 });
 
-$.gulp.task('deploy', $.gulp.series(
-    'ftp:deploy'
-));
-
-$.gulp.task('build', $.gulp.series(
-    ($.releaseFlag ? 'clean:release' : 'clean:dev'),
-    $.gulp.parallel(
-        'images:process',
-        'svg:sprite',
-        'fonts',
-        'sass:process',
-        'html:build',
-        'js:bundle',
-        'js:app'
-    ),
-    $.gulp.parallel(
-        'watch',
-        'serve'
-    )
-));
-
-$.gulp.task('default', $.gulp.series(
-    'build'
+gulp.task('default', gulp.series(
+  'js:lint',
+  'clean:dev',
+  gulp.parallel(
+    'js:bundle',
+    'js:browserify',
+    'pug',
+    'sass',
+    'images',
+    'svg:sprite',
+    'fonts'
+  ),
+  gulp.parallel(
+    'watch',
+    'serve'
+  )
 ));

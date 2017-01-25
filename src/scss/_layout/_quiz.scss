@@ -27,9 +27,9 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	display: none;
 
 	.qz-cover {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -145,7 +145,6 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	max-width: 1000px;
 	box-sizing: border-box;
 	margin: 0;
-	display: none;
 	&.active {
 		display: block;
 	}
@@ -327,14 +326,6 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 			border-style: dotted;
 		}
 	}	
-}
-
-.qz-button-next {
-	display: none;
-
-	&.active {
-		display: block;
-	}
 }
 
 @media only screen and (max-width: 768px) {

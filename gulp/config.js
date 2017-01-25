@@ -1,12 +1,13 @@
 'use strict';
-var path = require('./config.paths');
+var path = require('./config.paths'),
+  _ = require('underscore');
 
 module.exports = {
 
     root    : path.root,
     src     : path.src,
     destDev : path.destDev,
-    destRls : path.destRls,
+    destPrd : path.destPrd,
 
     app : {
         favicon : {
@@ -17,127 +18,118 @@ module.exports = {
             template    : '_favicon.pug',
             config      : require('./config.favicon.js')
         },
-        deploy : require('./config.deploy.js'),
-        environment : require('./config.environment.js')
+        deploy : require('./config.ftp.js')
+    },
+
+    browsersync : {
+        server: {
+            open: false,
+            server: path.destDev
+        },
+        watch: [path.destDev + '**/*.*', '!**/*.css']
     },
 
     sass: {
-        location       : path.src + 'scss/**/*.scss',
-        entryPoint     : path.src + 'scss/style.scss',
-        destinationDev : path.destDev + 'css',
-        destinationRls : path.destRls + 'css',
-
-        config: {
-            outputStyle: 'nested',
-            autoprefixer: {
-                browser: [
-                    'last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1'
-                ]
-            },
-            rls : {
-                outputStyle: 'compressed',
-                autoprefixer: {
-                    browser: [
-                        'last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1'
-                    ]
-                }
-            }
+        location    : path.src + 'scss/**/*.scss',
+        entryPoint  : path.src + 'scss/style.scss',
+        destination : {
+            production  : path.destPrd + 'css',
+            development : path.destDev + 'css'
+        },
+        sass : {},
+        autoprefixer : {
+            browsers: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']
         }
     },
 
-    html : {
-        location       : path.src + 'html/**/*.html',
-        destinationDev : path.destDev,
-        destinationRls : path.destRls,
+    lint : {
+        location : path.src + 'js/**/*.js',
 
-        config: {
-            pretty: '\t',
-            basedir: path.root
+        eslint : {
+            failAfterError : false
         }
     },
 
     pug: {
-        location       : path.src + 'template/**/*.pug',
-        compiled       : path.src + 'template/_pages/*.pug',
-        destinationDev : path.destDev,
-        destinationRls : path.destRls,
-        externals      : path.src + 'template/_external/',
-        dummy          : path.src + 'template/_external/_dummy.pug',
+        location: path.src + 'template/**/*.pug',
+        entryPoint: path.src + 'template/_pages/*.pug',
+        destination: {
+            production: path.destPrd,
+            development: path.destDev
+        },
 
-        config: {
+        pug: {
             pretty: '\t',
-            basedir: path.root
-        }
+            basedir: './'
+        },
 
+        useref: {}
     },
 
-    js : {
-        location       : path.src + 'js/**/*.js',
-        entryPoint     : path.src + 'js/main.js',
-        destinationDev : path.destDev + 'js',
-        destinationRls : path.destRls + 'js',
+    vue : {
+        location    : path.src + 'js/**/*.vue',
+    },
 
-        app: {
-            result: 'app.min.js',
-            browserify: {
-                insertGlobals: true,
-                debug: true
-            }
+    browserify : require('./config.browserify'),
+
+    bundle : {
+        entryPoint  : path.src + 'js/main.js',
+        destination : {
+            production  : path.destPrd + 'js',
+            development : path.destDev + 'js'
         },
-        bundle: {
-            result  : 'bundle.min.js',
-            vendors : require('./config.bundle.js')
-        }
+        output : 'bundle.js',
+        vendors: _.keys(require('../package.json').dependencies)
     },
 
     fonts : {
         location       : path.src + 'fonts/**/*.{ttf,woff,woff2,eof,svg}',
-        destinationDev : path.destDev + 'fonts',
-        destinationRls : path.destRls + 'fonts'
-    },
-
-    images : {
-        location       : path.src + 'images/**/*',
-        destinationDev : path.destDev + 'images',
-        destinationRls : path.destRls + 'images',
-
-        config: {
-            imagemin: {
-                optimizationLevel: 5,
-                progressive: true,
-                interlaced: true
-            }
+        destination : {
+            production  : path.destPrd + 'fonts',
+            development : path.destDev + 'fonts'
         }
     },
 
-    svg: {
-        location       : path.src + 'svg/**/*.svg',
-        destinationDev : path.destDev + 'svg',
-        destinationRls : path.destRls + 'svg',
+    images : {
+        location: path.src + 'images/**/*',
+        destination: {
+            production: path.destPrd + 'images',
+            development: path.destDev + 'images'
+        },
 
-        config: {
-            sprite: {
-                svgmin: {
-                    js2svg: {
-                        pretty: true
-                    }
-                },
-                cheerio: {
-                    run: function ($) {
-                        $('[fill]').removeAttr('fill');
-                        $('[style]').removeAttr('style');
-                    },
-                    parserOptions: {
-                        xmlMode: true
-                    }
-                },
-                svgSprite: {
-                    mode: {
-                        symbol: {
-                            example: false
-                        }
-                    }
+        imagemin: {
+            optimizationLevel: 5,
+            progressive: true,
+            interlaced: true
+        }
+    },
+
+    svgsprite: {
+        location       : path.src + 'svg/**/*.svg',
+        destination: {
+            production: path.destPrd + 'svg',
+            development: path.destDev + 'svg',
+        },
+
+        svgSprite: {
+            mode: {
+                symbol: {
+                    example: false
                 }
+            }
+        },
+
+        svgmin: {
+            js2svg: {pretty: true}
+        },
+
+        cheerio: {
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('[style]').removeAttr('style');
+            },
+            parserOptions: {
+                xmlMode: true
             }
         }
     },

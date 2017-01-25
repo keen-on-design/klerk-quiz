@@ -2,7 +2,8 @@
 
 module.exports = {
     root    : './',
-    src     : './app/',
-    destDev : './dev/',
-    destRls : './build/'
+    src     : './src/',
+    destDev : './build/',
+    destRls : './build/',
+    destPrd : './build/'
 };
