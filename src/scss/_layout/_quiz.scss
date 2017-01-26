@@ -27,58 +27,50 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	align-items: center;
 	justify-content: center;
 	position: relative;
-
-	.qz-cover {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		height: 350px;
-		box-sizing: border-box;
-		color: #fff;
-		padding: 10px 0;
-		background-color: lighten(#000, 10%);
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		overflow: hidden;
-
-		-webkit-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
-		-moz-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
-		box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
-
-		h1 {
-			font-size: 30px;
-			line-height: 30px;
-			text-align: center;
-			max-width: 90%;
-			position: relative;
-		}
-
-		p {
-			max-width: 90%;
-			margin: 0 0 12px;
-			position: relative;
-			width: 100%;
-		}
-
-		a {
-			color: #fff;
-		}
-
-		a:hover {
-			color: #efefef;
-		}
-	}
-
-	&.active {
-		display: flex;
-	}
 }
 
-.qz-opener:before {
+.qz-cover {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 350px;
+	box-sizing: border-box;
+	color: #fff;
+	padding: 10px 0;
+	background-color: lighten(#000, 10%);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden;
 
+	-webkit-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+	-moz-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+	box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+
+	h1 {
+		font-size: 30px;
+		line-height: 30px;
+		text-align: center;
+		max-width: 90%;
+		position: relative;
+	}
+
+	p {
+		max-width: 90%;
+		margin: 0 0 12px;
+		position: relative;
+		width: 100%;
+	}
+
+	a {
+		color: #fff;
+	}
+
+	a:hover {
+		color: #efefef;
+	}
 }
 
 .qz-result {
@@ -96,8 +88,6 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 		padding: 0 10% 10px;
 		margin: 0;
 	}
-
-	display: none;
 
 	&.active {
 		display: flex;
@@ -154,28 +144,28 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	box-sizing: border-box;
 }
 
-.qz-question-title {
+.qz-question-header {
 	color: #fff;
 	position: relative;
 	height: 350px;
 	box-sizing: border-box;
 	padding: 10px 0;
 	display: flex;
-	align-items: center;
-	align-content: center;
+	flex-direction: column;
+
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	-webkit-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+	-moz-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+	box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
 }
 
-.qz-question-title:before {
-	content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
+.qz-question-title {
+	color: white;
+	display: block;
+	text-align: center;
 }
 
 .qz-question-number {
@@ -184,10 +174,8 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	font-size: .8em;
 	width: 50px;
 	text-align: center;
-	left: 50%;
-	top: 10px;
-	margin-left: -15px;
-	border: 1px solid rgba(255, 255, 255, .5);
+	top: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .qz-question-text {
@@ -218,6 +206,16 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	border-bottom: 1px #e6e6e6 solid;
 }
 
+.qz-checked {
+	&.qz-checkbox {
+		label {
+			&:before {
+				background-color: #373c4d;
+			}
+		}
+	}
+}
+
 .qz-correct, .qz-correct-missing {
 	color: $qz-color-correct;
 
@@ -228,7 +226,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 				height: 26px;
 				@include margin(-4px null null -4px);
 				border-color: $qz-color-correct;
-				//background: $qz-color-correct;
+				background-color: transparent!important;
 			}
 
 			span {
@@ -258,6 +256,8 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	}
 }
 
+
+
 .qz-incorrect {
 	color: #b32d2d;
 
@@ -268,6 +268,7 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 				height: 26px;
 				@include margin(-4px null null -4px);
 				border-color: #b32d2d;
+				background-color: transparent!important;
 			}
 
 			span {
@@ -297,8 +298,13 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 	}
 }
 
-.qz-else {
+.qz-skip {
 	opacity: .3;
+	&:hover {
+		label:before {
+			border-width: 2px;
+		}
+	}
 }
 
 .qz-correct, .qz-incorrect, .qz-correct-missing, .qz-else {
@@ -325,7 +331,12 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 		&:before {
 			border-style: dotted;
 		}
-	}	
+	}
+}
+
+.qz-hint {
+	margin: 5px 0 5px 40px;
+	font-size: .85em;
 }
 
 @media only screen and (max-width: 768px) {
