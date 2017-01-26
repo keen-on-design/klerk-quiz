@@ -1,88 +1,368 @@
 <template>
 	<div class="qz__container" style="width: 100vw;">
 		<div class="qz-opener active" v-show="questionIndex === 0">
-			<div class="qz-cover" style="background-image:url(http://www.klerk.ru/img/pb/original/0a_8726.jpg);">
-				<h1>{{ quiz.title }}</h1>
-				<p>...</p>
+			<div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
+				<h1>{{ quiz.title  }}</h1>
+				<p v-html="quiz.introtext"></p>
 				<button class="qz-button qz-button-start" type="button" v-on:click='next'>Начать тест</button>
 			</div>
 
 			<div class="qz-introtext">
-				<p>...</p>
+				<p v-html="quiz.article"></p>
 			</div>
 		</div>
 
 		<div v-for="(question, index) in quiz.questions">
 			<div class="qz-question" v-show="index === questionIndex - 1">
 
-				<div class="qz-question-title" style="background-image:url(http://www.klerk.ru/img/pb/original/01_7243.jpg);">
-					<span class="qz-question-number"> {{ index }}/ {{ quiz.questions.length }}</span>
-					<span class="qz-question-text">{{ question.text }}</span>
+				<div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + question.image + ')' }">
+					<span class="qz-question-number"> {{ index + 1 }} <span class="spacer">/</span> {{ quiz.questions.length }}</span>
+					<h2 class="qz-question-title" v-html="question.title"></h2>
+					<span class="qz-question-warning" v-if="getQuestionType(question, index) !== 'radio'">несколько правильных ответов</span>
 				</div>
 
 				<div class="qz-question-answers">
 					<ul>
-						<li v-for="response in question.responses">
-							<div class="qz-answer-button qz-radio">
-								<input type="radio" name="q1" value="a" id="q1_a">
-								<label for="q1_a"><span></span>{{ response.text }}</label>
+						<li v-for="(response, responseIndex) in question.responses">
+							<div class="qz-answer-button"
+								 v-bind:class="{
+								 	'qz-checked': response.checked === true,
+								 	'qz-correct': response.status === 'correct',
+								 	'qz-incorrect': response.status === 'error',
+								 	'qz-correct-missing': response.status === 'missing',
+								 	'qz-skip': response.status === 'skip',
+								 	'qz-radio': getQuestionType(question) === 'radio',
+								 	'qz-checkbox': getQuestionType(question) === 'checkbox'
+									}">
+
+								<template v-if="getQuestionType(question) === 'radio'">
+									<input type="radio" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
+								</template>
+								<template v-else>
+									<input type="checkbox" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
+								</template>
+
+								<label
+										v-bind:for="index + '_' + responseIndex"
+										v-on:click="handleResponseClick(question, response)">
+									<span></span>{{ response.text }}
+								</label>
 							</div>
+							<p class="qz-hint" v-html="getResponseHint(response)"></p>
 						</li>
 					</ul>
-					<button class="qz-button qz-button-next" type="button" v-on:click="next">Дальше</button>
+					<button class="qz-button qz-button-confirm" type="button"
+							v-show="(question.confirmed === false) && (getQuestionType(question) === 'checkbox')"
+							v-on:click="confirmCheckboxResponse(question)">
+						Ок</button>
+					<button class="qz-button qz-button-next" type="button"
+							v-on:click="next"
+							v-show="question.confirmed === true">Дальше</button>
 				</div>
 			</div>
 		</div>
 
+		<div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength + 1">
 
+			<div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
+				<h2>{{ score.correct }} / {{ score.total }}</h2>
+				<h1>{{ score.title }}</h1>
+				<p>{{ score.text }}</p>
+				<button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
 
+				<button class="qz-button-network qz-button-fb" type="button">FB</button>
+				<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'Удовлетворительно.','http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg','У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.')">VK</button>
+				<button class="qz-button-network qz-button-od" type="button" onclick="Share.odnoklassniki(window.location.href,'Удовлетворительно.','http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg','У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.')">Одноклассники</button>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-	var quiz = {
-		title: 'My quiz',
-		questions: [
-			{
-				text: "Question 1",
-				responses: [
-					{text: 'Wrong, too bad.'},
-					{text: 'Right!', correct: true},
-				]
-			}, {
-				text: "Question 2",
-				responses: [
-					{text: 'Right answer', correct: true},
-					{text: 'Wrong answer'},
-				]
-			}
-		]
-	};
+  let quiz = {
+    title: 'Quiz title',
+	introtext: 'Some intro text...',
+	article: 'Some sample article content with <b>Html inside</b>',
+    image: 'http://lorempixel.com/800/600/business',
 
-	module.exports = {
-		data () {
-			return {
-				quiz: quiz,
-				// Store current question index
-				questionIndex: 0,
-				// An array initialized with "false" values for each question
-				// It means: "did the user answered correctly to the question n?" "no".
-				userResponses: Array(quiz.questions.length).fill(false)
+	questions: [
+      {
+        title: "Question 1",
+		text: "Question 1 text",
+        image: 'http://lorempixel.com/800/600/business',
+
+        responses: [
+          { text: 'Right.',
+			correct: true,
+			hint: {
+              'missing': 'How did yoy forget!',
+			  'correct': 'Wow, you are awesome!'
 			}
-		},
-		methods: {
-			// Go to next question
-			next: function() {
-				this.questionIndex++;
-			},
-			// Go to previous question
-			prev: function() {
-				this.questionIndex--;
-			},
-			// Return "true" count in userResponses
-			score: function() {
-				return this.userResponses.filter(function(val) { return val }).length;
-			}
+          },
+          {text: 'Not even close...',
+            hint: {
+              'error': 'You gotta be kidding me!',
+            }
+		  },
+        ]
+      }, {
+        title: "Question 2",
+        text: "Question 2 text",
+        image: 'http://lorempixel.com/800/600/business',
+
+        responses: [
+          {text: 'Right.', correct: true},
+          {text: 'Wrong one'},
+          {text: 'Right also!', correct: true},
+          {text: 'Naa-a'},
+        ]
+      }, {
+        title: "Question 3",
+        text: "Question 3 text",
+        image: 'http://lorempixel.com/800/600/business',
+
+        responses: [
+          {text: 'Wrong, too bad.'},
+          {text: 'Right!', correct: true},
+        ]
+      },
+    ],
+	results : [
+      {
+        entry: 0,
+		title: 'Your score is very low',
+		image: 'http://lorempixel.com/800/600/business',
+        shareImage: 'http://lorempixel.com/800/600/business'
+	  },
+      {
+        entry: 2,
+        title: 'Your score is ok',
+        image: 'http://lorempixel.com/800/600/business',
+        ogImage: 'http://lorempixel.com/800/600/business'},
+      {
+        entry: 3,
+        title: 'Your score is perfect',
+        image: 'http://lorempixel.com/800/600/business',
+        shareImage: 'http://lorempixel.com/800/600/business'
+      }
+    ]
+  };
+
+  let _ = require('underscore');
+
+  module.exports = {
+	  data () {
+		return {
+		  quiz: quiz,
+		  questionIndex: 0,
+		  questionsLength: quiz.questions.length,
+		  // An array initialized with "false" values for each question
+		  // It means: "did the user answered correctly to the question n?" "no".
+		  userResponses: Array(quiz.questions.length).fill(false)
 		}
-	};
+	  },
+
+	beforeCreate () {
+      _.each(quiz.questions, function (question) {
+        question.confirmed = false;
+        _.each(question.responses, function (response) {
+          response.checked = false;
+          response.status = false;
+        });
+      });
+	},
+
+    computed: {
+      // a computed getter
+      score: function () {
+        let scoreData = this.getQuizScore();
+
+        let resultIndex = _.findIndex(this.quiz.results, function (result) {
+          return (scoreData.correct <= result.entry);
+        });
+
+        if (resultIndex !== 0 && resultIndex !== this.quiz.results.length - 1 && scoreData.correct !== this.quiz.results[resultIndex].entry) resultIndex -= 1;
+        let result = this.quiz.results[resultIndex];
+
+        return {
+          title: result.title,
+          text: result.text,
+          image: result.image,
+          shareImage: result.shareImage,
+          correct: scoreData.correct,
+          total: scoreData.total,
+        }
+      }
+    },
+
+	  methods: {
+		// Go to next question
+		next: function () {
+		  this.questionIndex++;
+		},
+
+		// Go to previous question
+		prev: function () {
+		  this.questionIndex--;
+		},
+
+        // Go to quiz start
+		restart: function () {
+		  this.resetConfig();
+		  this.questionIndex = 0;
+        },
+
+		resetConfig: function () {
+		  let quiz = this.quiz;
+          _.each(quiz.questions, function (question) {
+            question.confirmed = false;
+            _.each(question.responses, function (response) {
+              response.checked = false;
+              response.status = false;
+            });
+          });
+        },
+
+		handleResponseClick: function (question, response) {
+		  if (question.confirmed === true) return false;
+
+		  if (this.getQuestionType(question) === 'radio') {
+            response.checked = true;
+		    this.confirmQuestion(question, function (question) {
+		      this.checkResponses(question);
+            });
+		  } else {
+            response.checked = !response.checked;
+		  }
+		},
+
+		setConfirmStatus: function (question, status) {
+          question.confirmed = status;
+        },
+
+		checkResponses : function (question) {
+		  const correctStatus = 'correct';
+          const missingStatus = 'missing';
+          const errorStatus = 'error';
+          const skipStatus = 'skip';
+
+          let self = this;
+
+		  _.each(question.responses, function (response) {
+            if (response.checked === true) {
+              if (response.correct === true) {
+                self.setResponseStatus(response, correctStatus);
+			  } else {
+                self.setResponseStatus(response, errorStatus);
+			  }
+			} else {
+              if (response.correct === true) {
+                self.setResponseStatus(response, missingStatus);
+			  } else {
+                self.setResponseStatus(response, skipStatus);
+			  }
+			}
+          });
+        },
+
+		setResponseStatus: function (response, status) {
+		  response.status = status;
+        },
+
+        confirmQuestion: function (question, callback) {
+		  this.setConfirmStatus(question, true);
+		  if (_.isFunction(callback)) {
+		    callback.call(this, question);
+		  }
+        },
+
+        confirmCheckboxResponse: function (question) {
+          this.confirmQuestion(question, function (question) {
+            this.checkResponses(question);
+          });
+        },
+
+		/**
+		 * Get question type: is it a single select or multi select question.
+		 * @param {Object} question - Object containing question data.
+		 * @return {String} String definition of question type.
+		 */
+		getQuestionType: function (question) {
+		  const defaultType = 'radio';
+		  const multiType = 'checkbox';
+
+		  if (!_.has(question, 'type')) {
+			if (!_.has(question, 'responses')) return defaultType;
+
+			let correct = 0;
+			_.each(question.responses, function (response) {
+			  if (response.correct === true) correct += 1;
+			});
+
+			if (correct > 1) return multiType;
+			return defaultType;
+
+		  } else {
+			return question.type;
+		  }
+		},
+
+        getResponseHint: function (response) {
+		  if (!response.status) return '';
+		  if (_.has(response, 'hint') && _.has(response.hint, response.status)) {
+		    return response.hint[response.status];
+          }
+		  return '';
+        },
+
+		getQuizScore : function () {
+		  let totalCorrect = 0;
+
+		  _.each(this.quiz.questions, function (question) {
+		    let correct = false;
+			_.each(question.responses, function (response) {
+			  if (response.status === 'correct') correct = true;
+            });
+
+            _.each(question.responses, function (response) {
+              if (response.status === 'missing') correct = false;
+            });
+
+            _.each(question.responses, function (response) {
+              if (response.status === 'error') correct = false;
+            });
+
+            if (correct) totalCorrect += 1;
+          });
+
+		  return {correct: totalCorrect, total: this.questionsLength};
+        }
+	  }
+  };
+
 </script>
+
+<style lang="sass">
+	.qz-question-number {
+		.spacer {
+			opacity: .3;
+		}
+	}
+
+	.qz-question-warning {
+		font-style: italic;
+		font-size: .85em;
+		position: relative;
+
+		&:before {
+			position: absolute;
+			content: '';
+			height: 2px;
+			background-color: rgba(255, 255, 255, .5);
+			width: 40px;
+			left: 50%;
+			margin-left: -20px;
+			top: -5px;
+	 	}
+	}
+</style>
