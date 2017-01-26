@@ -1,7 +1,7 @@
 <template>
     <div class="share">
-        <button v-for="(button, index) in buttons" v-bind:class="button.class"  v-show="isRequired(requires, index)" v-on:click="openPopup(button)" type="button">
-            {{ button.text }}
+        <button v-for="button in buttons" v-bind:class="getButtonConfig(button).class" v-on:click="openPopup(button)" v-show="isDefined(button)" type="button">
+            {{ getButtonConfig(button).text }}
         </button>
     </div>
 </template>
@@ -12,7 +12,10 @@
   module.exports = {
     data () {
       return {
-        buttons: {
+
+        buttons: this.requires.split(/\s*,\s*/),
+
+        configs: {
           vkontakte: {
             getPopupUrl: function (url, title, image, text) {
               let refUrl = 'http://vkontakte.ru/share.php?';
@@ -77,30 +80,35 @@
       }
     },
 
-    props: [
-      'requires',
-      'url',
-      'image',
-      'title',
-      'text'
-    ],
-
-    computed: {
+    props: {
+      requires : {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String
+      },
+      image: {
+        type: String
+      },
+      title: {
+        type: String
+      },
+      text: {
+        type: String
+      }
     },
 
     methods: {
-      isRequired: function (requireList, name) {
-        let list = requireList.split(/\s*,\s*/);
-        let inList = false;
+      isDefined: function (button) {
+        return _.has(this.configs, button);
+      },
 
-        _.each(list, function (item) {
-          if (name === item) inList = true;
-        });
-        return inList;
+      getButtonConfig: function (button) {
+        return this.configs[button];
       },
 
       getUrl : function () {
-
         if (this.url !== undefined && this.url !== '') {
           return this.url;
         } else {
@@ -109,7 +117,7 @@
       },
 
       openPopup: function (button) {
-        window.open(button.getPopupUrl(this.getUrl(), this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
+        window.open(this.getButtonConfig(button).getPopupUrl(this.getUrl(), this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
       }
     }
   }
