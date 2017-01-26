@@ -1,12 +1,9 @@
 import Vue from 'vue';
-import Quiz from './components/quiz.vue';
+import Quiz from './components/widgets/quiz-widget.vue';
 
 new Vue({
-  el: '#app',
+  el: '#widgets',
   components: {
-    'quiz': Quiz
+    'quiz-widget': Quiz
   },
-  render: function (createElement) {
-    return createElement(Quiz);
-  }
 });
