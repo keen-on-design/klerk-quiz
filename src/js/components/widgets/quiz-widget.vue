@@ -361,28 +361,3 @@
   };
 
 </script>
-
-<style lang="sass">
-    .qz-question-number {
-    .spacer {
-        opacity: .3;
-    }
-    }
-
-    .qz-question-warning {
-        font-style: italic;
-        font-size: .85em;
-        position: relative;
-
-    &:before {
-         position: absolute;
-         content: '';
-         height: 2px;
-         background-color: rgba(255, 255, 255, .5);
-         width: 40px;
-         left: 50%;
-         margin-left: -20px;
-         top: -5px;
-     }
-    }
-</style>
