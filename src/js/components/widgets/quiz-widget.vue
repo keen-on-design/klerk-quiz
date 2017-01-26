@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength + 1">
+        <div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength - 3">
 
             <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
                 <h2>{{ score.correct }} / {{ score.total }}</h2>
@@ -70,7 +70,7 @@
                 <p>{{ score.text }}</p>
                 <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
 
-                <share v-bind:requires="'vkontakte, facebook, odnoklassniki'"
+                <share v-bind:requires="'facebook, vkontakte, odnoklassniki'"
                        v-bind:url="quiz.url"
                        v-bind:image="score.shareImage"
                        v-bind:title="score.title"
