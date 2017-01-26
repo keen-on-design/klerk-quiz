@@ -28,9 +28,11 @@
           },
           odnoklassniki: {
             getPopupUrl: function (url, title, image, text) {
-              let refUrl = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1';
-              refUrl += '&st.comments=' + encodeURIComponent(text);
-              refUrl += '&st._surl=' + encodeURIComponent(url);
+              let refUrl = 'https://connect.ok.ru/offer';
+              refUrl += '?url=' + encodeURIComponent(url);
+              refUrl += '&title=' + encodeURIComponent(image);
+              refUrl += '&description=' + encodeURIComponent(text);
+              refUrl += '&imageUrl=' + encodeURIComponent(image);
               return refUrl;
             },
             class: 'social-button--ok',
@@ -75,10 +77,6 @@
       }
     },
 
-    beforeMount: function () {
-      console.log(this);
-    },
-
     props: [
       'requires',
       'url',
@@ -100,10 +98,18 @@
         });
         return inList;
       },
-      openPopup: function (button) {
-        console.log(button.getPopupUrl(this.url, this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
 
-        window.open(button.getPopupUrl(this.url, this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
+      getUrl : function () {
+
+        if (this.url !== undefined && this.url !== '') {
+          return this.url;
+        } else {
+          return window.location.href;
+        }
+      },
+
+      openPopup: function (button) {
+        window.open(button.getPopupUrl(this.getUrl(), this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
       }
     }
   }
