@@ -62,17 +62,20 @@
 			</div>
 		</div>
 
-		<div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength + 1">
+		<div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength - 3">
 
-			<div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
+			<div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
 				<h2>{{ score.correct }} / {{ score.total }}</h2>
 				<h1>{{ score.title }}</h1>
 				<p>{{ score.text }}</p>
 				<button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
 
-				<button class="qz-button-network qz-button-fb" type="button">FB</button>
-				<button class="qz-button-network qz-button-vk" type="button" onclick="Share.vkontakte(window.location.href,'Удовлетворительно.','http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg','У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.')">VK</button>
-				<button class="qz-button-network qz-button-od" type="button" onclick="Share.odnoklassniki(window.location.href,'Удовлетворительно.','http://www.klerk.ru/img/pb/original/qzresultnormal_575.jpg','У Вас есть явные пробелы в знаниях, стоит перечитать главу 26.2 внимательнее.')">Одноклассники</button>
+                <share v-bind:requires="'vkontakte, facebook, odnoklassniki'"
+					   v-bind:url="quiz.url"
+					   v-bind:image="score.shareImage"
+					   v-bind:title="score.title"
+					   v-bind:text="score.text">
+				</share>
 			</div>
 		</div>
 	</div>
@@ -81,6 +84,7 @@
 <script>
   let quiz = {
     title: 'Quiz title',
+	url: window.location.href,
 	introtext: 'Some intro text...',
 	article: 'Some sample article content with <b>Html inside</b>',
     image: 'http://lorempixel.com/800/600/business',
@@ -131,17 +135,20 @@
       {
         entry: 0,
 		title: 'Your score is very low',
+        text: 'Try another day',
 		image: 'http://lorempixel.com/800/600/business',
         shareImage: 'http://lorempixel.com/800/600/business'
 	  },
       {
         entry: 2,
         title: 'Your score is ok',
+        text: 'Nothing to worry about',
         image: 'http://lorempixel.com/800/600/business',
-        ogImage: 'http://lorempixel.com/800/600/business'},
+        shareImage: 'http://lorempixel.com/800/600/business'},
       {
         entry: 3,
         title: 'Your score is perfect',
+        text: 'P-E-R-F-E-C-T',
         image: 'http://lorempixel.com/800/600/business',
         shareImage: 'http://lorempixel.com/800/600/business'
       }
@@ -155,10 +162,7 @@
 		return {
 		  quiz: quiz,
 		  questionIndex: 0,
-		  questionsLength: quiz.questions.length,
-		  // An array initialized with "false" values for each question
-		  // It means: "did the user answered correctly to the question n?" "no".
-		  userResponses: Array(quiz.questions.length).fill(false)
+		  questionsLength: quiz.questions.length
 		}
 	  },
 
@@ -171,6 +175,10 @@
         });
       });
 	},
+
+    components: {
+	    'share' : require('./social/buttons-share.vue')
+    },
 
     computed: {
       // a computed getter
