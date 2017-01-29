@@ -1,5 +1,5 @@
 <template>
-    <div class="qz__container" style="width: 100vw;">
+    <div class="qz__container">
         <div class="qz-opener active" v-show="questionIndex === 0">
             <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
                 <h1>{{ quiz.title }}</h1>
@@ -62,26 +62,27 @@
             </div>
         </div>
 
-        <div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength - 3">
+        <div v-show="questionIndex === questionsLength - 3">
 
-            <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
-                <h2>{{ score.correct }} / {{ score.total }}</h2>
-                <h1>{{ score.title }}</h1>
-                <p>{{ score.text }}</p>
-                <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
-
-                <share v-bind:requires="'facebook, vkontakte, odnoklassniki'"
-                       v-bind:url="quiz.url"
-                       v-bind:image="score.shareImage"
-                       v-bind:title="score.title"
-                       v-bind:text="score.text">
-                </share>
+            <div class="qz-result qz-result-normal">
+                <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
+                    <h2>{{ score.correct }} / {{ score.total }}</h2>
+                    <h1>{{ score.title }}</h1>
+                    <p>{{ score.text }}</p>
+                    <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
+                </div>
             </div>
+            <share v-bind:requires="'facebook, vkontakte, twitter, odnoklassniki'"
+                   v-bind:url="quiz.url"
+                   v-bind:image="score.shareImage"
+                   v-bind:title="score.title"
+                   v-bind:text="score.text">
+            </share>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="babel">
   /* Config example
   {
     title: 'Quiz title',
