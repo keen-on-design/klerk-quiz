@@ -14,6 +14,14 @@ module.exports = {
   vendors: _.keys(require('../package.json').dependencies),
   browserify: {
     insertGlobals: true,
-    transform: [babelify.configure({presets: ['es2015']}), vueify]
+    transform: [
+      babelify.configure({presets: ["es2015", "stage-2"]}),
+      vueify
+    ],
+    plugin: [
+      ['vueify/plugins/extract-css', {
+        out: './build/css/bundle.css'
+      }]
+    ]
   }
 };
