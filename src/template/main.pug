@@ -1,9 +1,10 @@
 include _common/_mixins
 doctype html
 html
-	include _common/_head
+include _common/_head
 	body
 		block content
-		//script(src='http://connect.facebook.net/en_US/sdk.js')
+
+		link(rel='stylesheet', href='css/bundle.css', type='text/css')
 		script(src='js/bundle.js')
 		script(src='js/main.js')
