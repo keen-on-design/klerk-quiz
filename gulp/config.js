@@ -4,21 +4,13 @@ var path = require('./config.paths'),
 
 module.exports = {
 
-    root    : path.root,
-    src     : path.src,
-    destDev : path.destDev,
-    destPrd : path.destPrd,
-
-    app : {
-        favicon : {
-            location    : path.src + 'favicon/master.png',
-            destination : path.src + 'favicon/',
-            dataFile    : path.root + 'favicon.json',
-            basedir     : '/',
-            template    : '_favicon.pug',
-            config      : require('./config.favicon.js')
-        },
-        deploy : require('./config.ftp.js')
+    favicon : {
+        location    : path.src + 'favicon/master.png',
+        destination : path.src + 'favicon/',
+        dataFile    : path.root + 'favicon.json',
+        basedir     : '/',
+        template    : '_favicon.pug',
+        config      : require('./config.favicon.js')
     },
 
     browsersync : {

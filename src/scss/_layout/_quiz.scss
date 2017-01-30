@@ -112,37 +112,9 @@ $qz-color-incorrect: darken(#b32d2d, 5%);
 		text-align: center;
 		padding: 0 5%;
 	}
-
-	.qz-result-pic {
-		object-fit: cover;
-	}
-
-	.qz-result-text {
-		position: relative;
-		width: 100%;
-		text-align: center;
-	}
 }
 
-.qz-result-pic {
-	display: block;
-}
 
-.qz-result-pic-wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.qz-result-pic-wrap:before {
-	content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-}
 
 .qz-question {
 	max-width: 1000px;

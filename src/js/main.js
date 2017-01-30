@@ -5,5 +5,5 @@ new Vue({
   el: '#widgets',
   components: {
     'quiz-widget': Quiz
-  },
+  }
 });
