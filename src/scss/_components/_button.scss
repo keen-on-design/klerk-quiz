@@ -32,10 +32,10 @@
 	color: #4CAF50;
 	width: 30%;
 	min-width: 100px;
-	background-color: transparent;
+	background-color: rgba(0,0,0,0.3);
 
 	&:hover {
-		background-color: transparent;
+		background-color: rgba(0,0,0,0.3);
 		width: 35%;
 	}
 }
@@ -88,7 +88,7 @@
     transition: all 0.2s ease;
 
 	label {
-		font: normal 16px/19px "PT Serif", Arial, sans-serif;
+		font: normal 16px/19px "PT Sans", Arial, sans-serif;
 		cursor: pointer;
 		display: block;
 		height: 100%;
@@ -199,4 +199,9 @@
 .qz-button-vk {
 	@include background-image(url("http://www.klerk.ru/img/pb/original/iconsinetwork_3440.png"));
 	background-position: -198px 0;
+}
+
+.qz-button-od {
+	@include background-image(url("http://www.klerk.ru/img/pb/original/iconsinetwork_3440.png"));
+	background-position: -264px 0;
 }
