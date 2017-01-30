@@ -142,7 +142,7 @@
     .share-button--popup {
         position: relative;
         display: block;
-        min-width: 45px;
+        min-width: 50px;
         height: 32px;
         overflow: hidden;
         padding: 0 15px;
@@ -197,6 +197,9 @@
 
     .button--tw {
         @include linear-gradient(#1DA0F2, darken(#1DA0F2, 10%));
+        img {
+            height: 13px;
+        }
     }
 
     .button--ok {
