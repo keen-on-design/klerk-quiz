@@ -1,5 +1,5 @@
 <template>
-    <div class="qz__container" style="width: 100vw;">
+    <div class="qz__container">
         <div class="qz-opener active" v-show="questionIndex === 0">
             <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
                 <h1>{{ quiz.title }}</h1>
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength - 3">
+        <div class="qz-result qz-result-normal" v-show="questionIndex === questionsLength + 1">
 
             <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
                 <h2>{{ score.correct }} / {{ score.total }}</h2>
