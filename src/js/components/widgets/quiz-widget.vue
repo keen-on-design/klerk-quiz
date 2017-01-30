@@ -1,7 +1,7 @@
 <template>
     <div class="qz__container">
         <div class="qz-opener active" v-show="questionIndex === 0">
-            <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + quiz.image + ')' }">
+            <div class="qz-cover" v-preload-bg="quiz.image">
                 <h1>{{ quiz.title }}</h1>
                 <p v-html="quiz.introtext"></p>
                 <button class="qz-button qz-button-start" type="button" v-on:click='next'>Начать тест</button>
@@ -13,9 +13,9 @@
         </div>
 
         <div v-for="(question, index) in quiz.questions">
-            <div class="qz-question" v-show="index === questionIndex - 1">
+            <div class="qz-question" v-if="index === questionIndex - 1">
 
-                <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + question.image + ')' }">
+                <div class="qz-cover" v-preload-bg="question.image">
                     <span class="qz-question-number"> {{ index + 1 }} <span class="spacer">/</span> {{ quiz.questions.length }}</span>
                     <h2 class="qz-question-title" v-html="question.title"></h2>
                     <span class="qz-question-warning" v-if="getQuestionType(question, index) !== 'radio'">несколько правильных ответов</span>
@@ -62,10 +62,10 @@
             </div>
         </div>
 
-        <div v-show="questionIndex === questionsLength - 3">
+        <div v-if="questionIndex === questionsLength + 1">
 
             <div class="qz-result qz-result-normal">
-                <div class="qz-cover" v-bind:style="{ backgroundImage: 'url(' + score.image + ')' }">
+                <div class="qz-cover" v-preload-bg="score.image">
                     <h2>{{ score.correct }} / {{ score.total }}</h2>
                     <h1>{{ score.title }}</h1>
                     <p>{{ score.text }}</p>
@@ -157,7 +157,8 @@
     ]
   }*/
 
-  let _ = require('underscore');
+  const _ = require('underscore');
+  const $ = require('../../modules/dom.utility');
 
   module.exports = {
     data () {
@@ -178,8 +179,20 @@
       }
     },
 
-    beforeCreate () {
+    directives: {
+        'preload-bg': {
+            inserted (el, args) {
+                let img = new Image();
+                img.src = args.value;
+                $.addClass(el, 'loading');
 
+                img.onload = function() {
+                    el.style.backgroundImage = "url('" + args.value + "')";
+                    $.removeClass(el, 'loading');
+                    $.addClass(el, 'loaded');
+                }.bind(this);
+            }
+        }
     },
 
     components: {
@@ -362,3 +375,18 @@
   };
 
 </script>
+
+<style lang="sass">
+    @import "bourbon";
+
+    .qz-cover{
+        @include transition(all .3s ease-in-out);
+        &.loading {
+            opacity: 0;
+        }
+
+        &.loaded {
+            opacity: 1;
+        }
+    }
+</style>
