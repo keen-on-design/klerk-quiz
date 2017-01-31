@@ -440,7 +440,7 @@
       h2 {
         font: normal 26px/30px "PT Serif", "Times New Roman", Times, serif!important;
         max-width: 90%;
-          margin: 15px 0!important;
+          margin: 25px 0!important;
           padding: 0!important;
           border: none!important;
           text-align: center;
