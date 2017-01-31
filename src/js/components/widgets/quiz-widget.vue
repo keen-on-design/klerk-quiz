@@ -27,14 +27,14 @@
                         <li v-for="(response, responseIndex) in question.responses">
                             <div class="qz-answer-button"
                                  v-bind:class="{
-								 	'qz-checked': response.checked === true,
-								 	'qz-correct': response.status === 'correct',
-								 	'qz-incorrect': response.status === 'error',
-								 	'qz-correct-missing': response.status === 'missing',
-								 	'qz-skip': response.status === 'skip',
-								 	'qz-radio': getQuestionType(question) === 'radio',
-								 	'qz-checkbox': getQuestionType(question) === 'checkbox'
-									}">
+                  'qz-checked': response.checked === true,
+                  'qz-correct': response.status === 'correct',
+                  'qz-incorrect': response.status === 'error',
+                  'qz-correct-missing': response.status === 'missing',
+                  'qz-skip': response.status === 'skip',
+                  'qz-radio': getQuestionType(question) === 'radio',
+                  'qz-checkbox': getQuestionType(question) === 'checkbox'
+                  }">
 
                                 <template v-if="getQuestionType(question) === 'radio'">
                                     <input type="radio" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
@@ -425,9 +425,9 @@
       overflow: hidden;
       @include transition(all .3s ease-in-out);
 
-      -webkit-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
-      -moz-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
-      box-shadow: inset 0 0 0 100vw rgba(0,0,0,.6);
+      -webkit-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.5);
+      -moz-box-shadow: inset 0 0 0 100vw rgba(0,0,0,.5);
+      box-shadow: inset 0 0 0 100vw rgba(0,0,0,.5);
 
       h1 {
         font: normal 30px/32px "PT Serif", "Times New Roman", Times, serif!important;
