@@ -68,8 +68,8 @@
             <div class="qz-result">
                 <div class="qz-cover" v-preload-bg="score.image">
                     <h2 class="qz-score">{{ score.correct }} / {{ score.total }}</h2>
-                    <h1>{{ score.title }}</h1>
-                    <p>{{ score.text }}</p>
+                    <h1 v-html="score.title"></h1>
+                    <p v-html="score.text"></p>
                 </div>
             </div>
 
