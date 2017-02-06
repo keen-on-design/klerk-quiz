@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const utils = require('./utils.webpack');
+
 const pathToBourbon = require('node-bourbon').includePaths;
 const productionEnv = process.env.NODE_ENV === 'production';
 
@@ -72,21 +72,14 @@ let config = {
                   }
                 },*/
                 {
-                  loader: 'sass-loader'
+                  loader: 'sass-loader',
+                  options: {
+                    includePaths: pathToBourbon
+                  }
                 }
               ],
               fallbackLoader: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
             })
-          },
-
-          postcss: [
-            require('autoprefixer')({
-              browsers: ['last 2 versions']
-            })
-          ],
-
-          sassLoader: {
-            includePaths: pathToBourbon
           }
         }
       },
@@ -107,15 +100,8 @@ let config = {
 };
 
 if (productionEnv) {
-  // use hash filename to support long-term caching
+  // use [chunkhash:8] filename to support long-term caching
   config.output.filename = 'js/[name].js';
-
-  function assetsPath (_path) {
-    var assetsSubDirectory = process.env.NODE_ENV === 'production'
-      ? ''
-      : '';
-    return path.posix.join(assetsSubDirectory, _path)
-  }
 
   config.plugins.push(
     new ExtractTextPlugin('css/bundle.css'),
