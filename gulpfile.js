@@ -1,10 +1,13 @@
 'use strict';
-let gulp = require('gulp');
+
 let util = require('gulp-util');
+// Set node env to production if running with a production flag
+if (util.env[require('./gulp/config.env').flags.production] !== undefined) process.env.NODE_ENV = 'production';
+
+let gulp = require('gulp');
 let config = require('./gulp/config');
 let path = require('./gulp/config.paths');
 
-console.log(require('node-bourbon').includePaths);
 
 global.$ = {
   package: require('./package.json'),
@@ -27,14 +30,15 @@ global.$ = {
   tasks: [
     // Generally tasks should be created with config from a global storage: gulp/config.js.
     {id: 'js:lint', path: './gulp/c.tasks/eslint.js', config: config.lint},
-    {id: 'js:bundle', path: './gulp/c.tasks/bundle.js', config: config.bundle},
-    {id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.browserify},
+    //{id: 'js:bundle', path: './gulp/c.tasks/bundle.js', config: config.bundle},
+    //{id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.browserify},
+    {id: 'webpack', path: './gulp/c.tasks/webpack.js', config: config.webpack},
     {id: 'pug', path: './gulp/c.tasks/pug.js', config: config.pug},
     {id: 'sass', path: './gulp/c.tasks/sass.js', config: config.sass},
-    {id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts},
-    {id: 'images', path: './gulp/c.tasks/images.js', config: config.images},
+    //{id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts},
+    //{id: 'images', path: './gulp/c.tasks/images.js', config: config.images},
     {id: 'svg:sprite', path: './gulp/c.tasks/svg.js', config: config.svgsprite},
-    {id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync},
+    //{id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync},
 
     // In some cases you can create tasks passing inline config to keep things simple and transparent.
     {id: 'clean', path: './gulp/c.tasks/clean.js', config: {destination: './build'}},
@@ -66,11 +70,6 @@ gulp.task('default', gulp.series(
   gulp.parallel(
     'pug',
     'sass',
-    'js:bundle',
-    'js:browserify'
-  ),
-  gulp.parallel(
-    'watch',
-    'serve'
+    'webpack'
   )
 ));
