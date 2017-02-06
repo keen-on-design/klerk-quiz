@@ -129,8 +129,7 @@
 </script>
 
 <style lang="sass">
-    @import "bourbon";
-
+    @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
     .block-share {
         margin: 10px 0;
         text-align: center;
@@ -189,21 +188,18 @@
     }
 
     .button--fb {
-        @include linear-gradient(#3B5998, darken(#3B5998, 10%));
         img {
             height: 14px;
         }
     }
 
     .button--tw {
-        @include linear-gradient(#1DA0F2, darken(#1DA0F2, 10%));
         img {
             height: 13px;
         }
     }
 
     .button--ok {
-        @include linear-gradient(#F7931E, darken(#F7931E, 10%));
         img {
             height: 14px;
         }
