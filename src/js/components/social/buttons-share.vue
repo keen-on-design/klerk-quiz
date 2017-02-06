@@ -13,7 +13,8 @@
 </template>
 
 <script lang="babel">
-  let _ = require('underscore');
+  import _ from 'underscore';
+  import {windowOpen} from 'utils.window';
 
   module.exports = {
     data () {
@@ -122,7 +123,7 @@
       },
 
       openPopup: function (button) {
-        window.open(this.getButtonConfig(button).getPopupUrl(this.getUrl(), this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
+        windowOpen(this.getButtonConfig(button).getPopupUrl(this.getUrl(), this.title, this.image, this.text),'','toolbar=0,status=0,width=626,height=436');
       }
     }
   }
@@ -188,18 +189,21 @@
     }
 
     .button--fb {
+        background-image: linear-gradient(180deg, #304591 0%, #2B3E82 100%);
         img {
             height: 14px;
         }
     }
 
     .button--tw {
+        background-image: linear-gradient(180deg, #304591 0%, #2B3E82 100%);
         img {
             height: 13px;
         }
     }
 
     .button--ok {
+        background-image: linear-gradient(180deg, #304591 0%, #2B3E82 100%);
         img {
             height: 14px;
         }
