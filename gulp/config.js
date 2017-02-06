@@ -62,6 +62,8 @@ module.exports = {
         location    : path.src + 'js/**/*.vue',
     },
 
+    webpack: require('./config.webpack'),
+
     browserify : require('./config.browserify'),
 
     bundle : {
