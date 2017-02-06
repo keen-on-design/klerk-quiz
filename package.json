@@ -25,6 +25,7 @@
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
+    "babel-runtime": "^6.22.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.14.0",
     "browserify": "^13.1.1",
@@ -81,6 +82,7 @@
     "yargs": "^6.5.0"
   },
   "dependencies": {
+    "platform": "^1.3.3",
     "underscore": "^1.8.3",
     "vex-js": "^3.0.0",
     "vue": "^2.1.10"
