@@ -159,10 +159,10 @@
     ]
   }*/
 
-  const _ = require('underscore');
-  const $ = require('../../modules/dom.utility');
+  import _ from 'underscore';
+  import $ from '../../modules/dom.utility';
 
-  module.exports = {
+  export default {
     data () {
       let data = JSON.parse(this.contents);
 
@@ -379,8 +379,7 @@
 </script>
 
 <style lang="sass">
-    @import "bourbon";
-
+    @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
     $qz-color-correct: #4CAF50;
     $qz-color-incorrect: darken(#b32d2d, 5%);
 
@@ -551,7 +550,7 @@
     .qz-answer-button {
       color: #010101;
       margin: 0 10px 0 0;
-      height: 100%;      
+      height: 100%;
       @include transition(all 0.2s ease);
 
       label {
@@ -710,16 +709,16 @@
     }
 
     .qz-skip {
-      opacity: .3;      
+      opacity: .3;
     }
 
     .qz-correct, .qz-incorrect, .qz-correct-missing, .qz-else, .qz-skip {
       &:hover {
         label:before {
-          border-width: 2px;          
+          border-width: 2px;
         }
       }
-    }    
+    }
 
     .qz-correct-missing {
       color: $qz-color-correct;
@@ -737,7 +736,7 @@
         &:before {
           border-style: dotted;
         }
-      }      
+      }
     }
 
     .qz-hint {
@@ -778,12 +777,12 @@
       }
     }
 
-    @media only screen and (max-width: 768px) {
+    /*@media only screen and (max-width: 768px) {
     .qz-result h1, .qz-opener h1, .qz-cover h2, .qz-question-text {
       font-size: 22px!important;
       line-height: 24px!important;
       }
-    }
+    }*/
 
     .qz-button {
       font: bold 14px/36px "PT Sans", Arial, sans-serif;
