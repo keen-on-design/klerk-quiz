@@ -12,6 +12,10 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+function cwd (file) {
+  return path.join(process.cwd(), file || '')
+}
+
 let config = {
   entry: {
     app: './src/js/main.js'
@@ -27,26 +31,19 @@ let config = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     modules: [
-      resolve('src'),
-      resolve('node_modules')
+      path.resolve(__dirname, "../src"),
+      path.resolve(__dirname, "../src/js/components"),
+      path.resolve(__dirname, "../src/js/modules"),
+      "node_modules"
     ],
-    alias: {
-      'src': resolve('src/js'),
-      'assets': resolve('src/js/modules'),
-      'components': resolve('src/js/components')
-    }
+    /*alias: {
+      root: path.join(__dirname, '../src'),
+      components: path.join(__dirname, '../src/js/components'),
+      modules: path.join(__dirname, '../src/js/modules')
+    }*/
 },
   module: {
     rules: [
-      {
-        test: /\.(js)$/,
-        loader: 'eslint-loader',
-        enforce: "pre",
-        include: [resolve('src')],
-        options: {
-          //formatter: eslintFriendlyFormatter
-        }
-      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -86,7 +83,7 @@ let config = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('src/js/modules')]
       },
       {
         test: /\.json$/,
@@ -135,5 +132,5 @@ if (productionEnv) {
     })
   );
 }
-
+console.log(config.resolve);
 module.exports = config;
