@@ -38,7 +38,7 @@ global.$ = {
     //{id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts},
     //{id: 'images', path: './gulp/c.tasks/images.js', config: config.images},
     {id: 'svg:sprite', path: './gulp/c.tasks/svg.js', config: config.svgsprite},
-    //{id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync},
+    {id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync},
 
     // In some cases you can create tasks passing inline config to keep things simple and transparent.
     {id: 'clean', path: './gulp/c.tasks/clean.js', config: {destination: './build'}},
@@ -55,13 +55,10 @@ $.tasks.forEach(function (task) {
  */
 
 gulp.task('watch', function () {
-  gulp.watch(config.browserify.location, gulp.series('js:lint', 'js:browserify'));
-  gulp.watch(config.vue.location, gulp.series('js:lint', 'js:browserify'));
+  gulp.watch(config.browserify.location, gulp.series('webpack'));
+  gulp.watch(config.vue.location, gulp.series('webpack'));
   gulp.watch(config.sass.location, gulp.series('sass'));
   gulp.watch(config.pug.location, gulp.series('pug'));
-  gulp.watch(config.fonts.location, gulp.series('fonts'));
-  gulp.watch(config.svgsprite.location, gulp.series('svg:sprite'));
-  gulp.watch(config.images.location, gulp.series('images'));
 });
 
 gulp.task('default', gulp.series(
@@ -71,5 +68,9 @@ gulp.task('default', gulp.series(
     'pug',
     'sass',
     'webpack'
+  ),
+  gulp.parallel(
+    'watch',
+    'serve'
   )
 ));

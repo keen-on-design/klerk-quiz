@@ -1,6 +1,7 @@
 'use strict';
-var path = require('./config.paths'),
-  _ = require('underscore');
+const path = require('./config.paths');
+const _ = require('underscore');
+const util = require('gulp-util');
 
 module.exports = {
 
@@ -62,7 +63,7 @@ module.exports = {
         location    : path.src + 'js/**/*.vue',
     },
 
-    webpack: require('./config.webpack'),
+    webpack: (util.env[require('./config.env').flags.production] !== undefined) ? require('./webpack/webpack.prod.config') : require('./webpack/webpack.base.config'),
 
     browserify : require('./config.browserify'),
 
