@@ -8,6 +8,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const pathToBourbon = require('node-bourbon').includePaths;
 const productionEnv = process.env.NODE_ENV === 'production';
 
+
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -101,6 +103,9 @@ if (productionEnv) {
   config.output.filename = 'js/[name].js';
 
   config.plugins.push(
+
+    new require(),
+
     new ExtractTextPlugin('css/bundle.css'),
 
     new webpack.DefinePlugin({
