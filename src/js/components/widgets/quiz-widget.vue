@@ -160,7 +160,7 @@
   }*/
 
   import _ from 'underscore';
-  import $ from '../../modules/dom.utility';
+  import $ from 'utils/dom.utility';
 
   export default {
     data () {
@@ -182,19 +182,19 @@
     },
 
     directives: {
-        'preload-bg': {
-            inserted (el, args) {
-                let img = new Image();
-                img.src = args.value;
-                $.addClass(el, 'loading');
+      'preload-bg': {
+        inserted (el, args) {
+          let img = new Image();
+          img.src = args.value;
+          $.addClass(el, 'loading');
 
-                img.onload = function() {
-                    el.style.backgroundImage = "url('" + args.value + "')";
-                    $.removeClass(el, 'loading');
-                    $.addClass(el, 'loaded');
-                }.bind(this);
-            }
+          img.onload = function() {
+            el.style.backgroundImage = "url('" + args.value + "')";
+            $.removeClass(el, 'loading');
+            $.addClass(el, 'loaded');
+          }.bind(this);
         }
+      }
     },
 
     components: {
@@ -351,6 +351,7 @@
         return '';
       },
 
+      // TODO Check algorithm
       getQuizScore : function () {
         let totalCorrect = 0;
 

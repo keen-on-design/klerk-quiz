@@ -14,12 +14,14 @@
 
 <script lang="babel">
   import _ from 'underscore';
-  import {windowOpen} from 'utils.window';
+  import {windowOpen} from 'utils/utils.window';
+  import * as links from './social-links';
 
-  module.exports = {
+  console.log(links);
+
+  export default {
     data () {
       return {
-
         buttons: this.requires.split(/\s*,\s*/),
 
         configs: {
@@ -129,7 +131,7 @@
   }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
     @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
     .block-share {
         margin: 10px 0;
