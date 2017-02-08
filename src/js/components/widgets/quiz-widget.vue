@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div v-if="questionIndex === questionsLength - 3">
+        <div v-if="questionIndex === questionsLength + 1">
 
             <div class="qz-result">
                 <div class="qz-cover" v-preload-bg="score.image">
@@ -213,11 +213,13 @@
       score: function () {
         let scoreData = this.getQuizScore();
 
-        let resultIndex = _.findIndex(this.quiz.results, function (result) {
-          return (scoreData.correct <= result.entry);
+        let resultIndex = _.findLastIndex(this.quiz.results, function (result) {
+          return (scoreData.correct >= result.entry);
         });
 
-        if (resultIndex !== 0 && resultIndex !== this.quiz.results.length - 1 && scoreData.correct !== this.quiz.results[resultIndex].entry) resultIndex -= 1;
+        console.log(resultIndex);
+
+        //if (resultIndex !== 0 && resultIndex !== this.quiz.results.length - 1 && scoreData.correct !== this.quiz.results[resultIndex].entry) resultIndex -= 1;
         let result = this.quiz.results[resultIndex];
 
         return {
@@ -378,7 +380,7 @@
 
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
     @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
     $qz-color-correct: #4CAF50;
     $qz-color-incorrect: darken(#b32d2d, 5%);
@@ -777,16 +779,16 @@
       }
     }
 
-    /*@media only screen and (max-width: 768px) {
-    .qz-result h1, .qz-opener h1, .qz-cover h2, .qz-question-text {
-      font-size: 22px!important;
-      line-height: 24px!important;
+    @media only screen and (max-width: 768px) {
+      .qz-result h1, .qz-opener h1, .qz-cover h2, .qz-question-text {
+        font-size: 22px!important;
+        line-height: 24px!important;
       }
-    }*/
+    }
 
     .qz-button {
       font: bold 14px/36px "PT Sans", Arial, sans-serif;
-      color: lighten(#373c4d, 60%);
+      color: lighten(#373c4d, 70%);
       letter-spacing: 1px;
       display: block;
       position: relative;
@@ -794,17 +796,22 @@
       padding: 0 10px!important;
       min-width: 100px;
       cursor: pointer;
-      @include border-top-radius(4px);
-      @include border-right-radius(4px);
-      @include border-bottom-radius(4px);
-      @include border-left-radius(4px);
-      border: 2px transparent solid!important;
+      outline: none;
+      box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, .2);
+      @include border-top-radius(2px);
+      @include border-right-radius(2px);
+      @include border-bottom-radius(2px);
+      @include border-left-radius(2px);
+      border: 1px solid rgba(0, 0, 0, .2);
+      border-top: 1px solid rgba(0, 0, 0, .1);
+      border-bottom: 1px solid rgba(0, 0, 0, .4);
       background-color: lighten(#373c4d, 10%);
       outline: none!important;
         transition: all 0.2s ease;
 
       &:hover {
-        background-color: #373c4d;
+        box-shadow: inset 0 1px 0 0 hsla(0, 0%, 0%, .1);
+         background-color: lighten(#373c4d, 6%);
       }
     }
 
