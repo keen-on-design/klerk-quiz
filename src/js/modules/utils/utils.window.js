@@ -1,6 +1,9 @@
 const platform = require('platform');
 
 export function objectToGetParams(object) {
+
+  console.log(Object.keys(object));
+
   return '?' + Object.keys(object)
       .filter(key => !!object[key])
       .map(key => `${key}=${encodeURIComponent(object[key])}`)

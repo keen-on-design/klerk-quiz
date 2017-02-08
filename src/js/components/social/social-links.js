@@ -1,63 +1,86 @@
 import {objectToGetParams} from 'utils/utils.window';
 
-export function twitter(url, { title, via, hashtags = [] }) {
-  assert(url, 'twitter.url');
-  assert(Array.isArray(hashtags), 'twitter.hashtags is not an array');
-
-  return 'https://twitter.com/share' + objectToGetParams({
-      url,
-      text: title,
-      via,
-      hashtags: hashtags.join(','),
-    });
+export function twitter(url) {
+  let generator = function ({ title, via, hashtags = [] }) {
+    return 'https://twitter.com/share' + objectToGetParams({
+        url,
+        text: title,
+        via,
+        hashtags: hashtags.join(','),
+      });
+  };
+  generator.schema = ['title', 'via', 'hashtags'];
+  return generator;
 }
 
-export function facebook(url, { title, description, picture, hashtag }) {
-  assert(url, 'facebook.url');
-
-  return 'https://facebook.com/sharer.php' + objectToGetParams({
-      u: url,
-      title,
-      description,
-      picture,
-      hashtag,
-    });
-}
+export function facebook(url) {
+  let generator = function ({ title, description, picture, hashtag }) {
+    return 'https://facebook.com/sharer.php' + objectToGetParams({
+        u: url,
+        title,
+        description,
+        picture,
+        hashtag,
+      });
+  };
+  generator.schema = ['title', 'description', 'picture', 'hashtag'];
+  return generator;
+};
 
 export function googlePlus(url) {
-  assert(url, 'googlePlus.url');
-
-  return 'https://plus.google.com/share' + objectToGetParams({ url });
+  let generator = function () {
+    return 'https://plus.google.com/share' + objectToGetParams({ url });
+  };
+  generator.schema = [];
+  return generator;
 }
 
-export function linkedin(url, { title, description }) {
-  assert(url, 'linkedin.url');
-
-  return 'https://linkedin.com/shareArticle' + objectToGetParams({
-      url,
-      title,
-      summary: description,
-    });
+export function linkedin(url) {
+  let generator = function ({ title, description }) {
+    return 'https://linkedin.com/shareArticle' + objectToGetParams({
+        url,
+        title,
+        summary: description,
+      });
+  };
+  generator.schema = ['title', 'description'];
+  return generator;
 }
 
-export function pinterest(url, { media, description }) {
-  assert(url, 'pinterest.url');
-  assert(media, 'pinterest.media');
-
-  return 'https://pinterest.com/pin/create/button/' + objectToGetParams({
-      url,
-      media,
-      description,
-    });
+export function pinterest(url) {
+  let generator = function ({ picture, description }) {
+    return 'https://pinterest.com/pin/create/button/' + objectToGetParams({
+        url,
+        media: picture,
+        description
+      });
+  };
+  generator.schema = ['picture', 'description'];
+  return generator;
 }
 
-export function vkontakte(url, { title, description, image }) {
-  assert(url, 'vk.url');
+export function vkontakte(url) {
+  let generator = function ({ title, description, picture }) {
+    return 'https://vk.com/share.php' + objectToGetParams({
+        url,
+        title,
+        description,
+        image: picture,
+      });
+  };
+  generator.schema = ['title', 'description', 'picture'];
+  return generator;
+}
 
-  return 'https://vk.com/share.php' + objectToGetParams({
-      url,
-      title,
-      description,
-      image,
-    });
+export function odnoklassniki(url) {
+  let generator = function ({ title, description, picture }) {
+    return 'https://connect.ok.ru/offer' + objectToGetParams({
+        url,
+        title,
+        description,
+        imageUrl: picture,
+      });
+  };
+  generator.schema = ['title', 'description', 'picture'];
+  return generator;
 }

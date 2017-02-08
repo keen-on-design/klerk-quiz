@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div v-if="questionIndex === questionsLength + 1">
+        <div v-if="questionIndex === questionsLength - 3">
 
             <div class="qz-result">
                 <div class="qz-cover" v-preload-bg="score.image">
@@ -76,9 +76,9 @@
             <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
             <share v-bind:requires="'facebook, vkontakte, twitter, odnoklassniki'"
                    v-bind:url="quiz.url"
-                   v-bind:image="score.shareImage"
+                   v-bind:picture="score.shareImage"
                    v-bind:title="score.title"
-                   v-bind:text="score.text">
+                   v-bind:description="score.text">
             </share>
         </div>
     </div>
@@ -351,7 +351,6 @@
         return '';
       },
 
-      // TODO Check algorithm
       getQuizScore : function () {
         let totalCorrect = 0;
 
