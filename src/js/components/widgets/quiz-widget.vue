@@ -381,7 +381,7 @@
 </script>
 
 <style lang="sass" scoped>
-    @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
+    @import "~bourbon/app/assets/stylesheets/bourbon";
     $qz-color-correct: #4CAF50;
     $qz-color-incorrect: darken(#b32d2d, 5%);
 

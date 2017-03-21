@@ -103,7 +103,7 @@
 </script>
 
 <style lang="sass" scoped>
-  @import "~node-bourbon/node_modules/bourbon/app/assets/stylesheets/bourbon";
+  @import "~bourbon/app/assets/stylesheets/bourbon";
 
   $color-ok: #EE8208;
   $color-vk: #507299;

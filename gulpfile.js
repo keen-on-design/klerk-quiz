@@ -2,6 +2,7 @@
 
 let util = require('gulp-util');
 // Set node env to production if running with a production flag
+const isProduction = (util.env[require('./gulp/config.env').flags.production] !== undefined);
 if (util.env[require('./gulp/config.env').flags.production] !== undefined) process.env.NODE_ENV = 'production';
 
 let gulp = require('gulp');
@@ -62,15 +63,11 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', gulp.series(
-  'js:lint',
   'clean',
   gulp.parallel(
     'pug',
     'sass',
     'webpack'
   ),
-  gulp.parallel(
-    'watch',
-    'serve'
-  )
-));
+  (!isProduction) ? gulp.parallel('serve') : function (done) {done();})
+);

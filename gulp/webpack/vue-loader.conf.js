@@ -7,28 +7,19 @@ if (isProduction) {
   config = {
     loaders: {
       sass: ExtractTextPlugin.extract({
-        loader: [{
-          loader: 'css-loader',
-          options: {
-            modules: true
+        use: [
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
           }
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: function () {
-              return [
-                require('autoprefixer'),
-                require('css')
-              ];
-            }
-          }
-        }, {
-          loader: 'sass-loader',
-        }],
-        includePaths: [
-          require('node-bourbon').includePaths
         ],
-        fallbackLoader: 'vue-style-loader'
+        fallback: 'vue-style-loader'
+      }),
+      css: ExtractTextPlugin.extract({
+        use: ['css-loader'],
+        fallback: 'vue-style-loader'
       })
     }
   }
