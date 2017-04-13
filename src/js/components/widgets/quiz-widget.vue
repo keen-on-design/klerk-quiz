@@ -1,32 +1,31 @@
 <template>
-    <div class="qz__container">
-        <div class="qz-opener active" v-show="questionIndex === 0">
-            <div class="qz-cover" v-preload-bg="quiz.image">
-                <h1>{{ quiz.title }}</h1>
-                <p v-html="quiz.introtext"></p>
-            </div>
+  <div class="qz__container">
+    <div class="qz-opener active" v-show="questionIndex === 0">
+      <div class="qz-cover" v-preload-bg="quiz.image">
+        <h1>{{ quiz.title }}</h1>
+        <p v-html="quiz.introtext"></p>
+      </div>
 
-            <button class="qz-button qz-button-start" type="button" v-on:click='next'>Начать тест</button>
+      <button class="qz-button qz-button-start" type="button" v-on:click='next'>Начать тест</button>
 
-            <div class="qz-introtext">
-                <p v-html="quiz.article"></p>
-            </div>
+      <div class="qz-introtext">
+        <p v-html="quiz.article"></p>
+      </div>
+    </div>
+
+    <div v-for="(question, index) in quiz.questions">
+      <div class="qz-question" v-if="index === questionIndex - 1">
+        <div class="qz-cover" v-preload-bg="question.image">
+          <span class="qz-question-number"> {{ index + 1 }} <span class="spacer">/</span> {{ quiz.questions.length }}</span>
+          <h2 class="qz-question-title" v-html="question.title"></h2>
+          <span class="qz-question-warning" v-if="getQuestionType(question, index) !== 'radio'">несколько правильных ответов</span>
         </div>
-
-        <div v-for="(question, index) in quiz.questions">
-            <div class="qz-question" v-if="index === questionIndex - 1">
-
-                <div class="qz-cover" v-preload-bg="question.image">
-                    <span class="qz-question-number"> {{ index + 1 }} <span class="spacer">/</span> {{ quiz.questions.length }}</span>
-                    <h2 class="qz-question-title" v-html="question.title"></h2>
-                    <span class="qz-question-warning" v-if="getQuestionType(question, index) !== 'radio'">несколько правильных ответов</span>
-                </div>
-
-                <div class="qz-question-answers">
-                    <ul>
-                        <li v-for="(response, responseIndex) in question.responses">
-                            <div class="qz-answer-button"
-                                 v-bind:class="{
+        
+        <div class="qz-question-answers">
+          <ul>
+            <li v-for="(response, responseIndex) in question.responses">
+              <div class="qz-answer-button"
+                v-bind:class="{
                   'qz-checked': response.checked === true,
                   'qz-correct': response.status === 'correct',
                   'qz-incorrect': response.status === 'error',
@@ -34,136 +33,62 @@
                   'qz-skip': response.status === 'skip',
                   'qz-radio': getQuestionType(question) === 'radio',
                   'qz-checkbox': getQuestionType(question) === 'checkbox'
-                  }">
+                }">
 
-                                <template v-if="getQuestionType(question) === 'radio'">
-                                    <input type="radio" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
-                                </template>
-                                <template v-else>
-                                    <input type="checkbox" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
-                                </template>
+                <template v-if="getQuestionType(question) === 'radio'">
+                  <input type="radio" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
+                </template>
+                <template v-else>
+                  <input type="checkbox" v-bind:name="responseIndex" v-bind:value="responseIndex" v-bind:id="index + '_' + responseIndex">
+                </template>
 
-                                <label
-                                        v-bind:for="index + '_' + responseIndex"
-                                        v-on:click="handleResponseClick(question, response)">
-                                    <span></span>{{ response.text }}
-                                </label>
-                            </div>
-                            <p class="qz-hint" v-html="getResponseHint(response)"></p>
-                        </li>
-                    </ul>
-                    <button class="qz-button qz-button-confirm" type="button"
-                            v-show="(question.confirmed === false) && (getQuestionType(question) === 'checkbox')"
-                            v-on:click="confirmCheckboxResponse(question)">
-                        Ок</button>
-                    <button class="qz-button qz-button-next" type="button"
-                            v-on:click="next"
-                            v-show="question.confirmed === true">Дальше</button>
-                </div>
-            </div>
+                <label
+                  v-bind:for="index + '_' + responseIndex"
+                  v-on:click="handleResponseClick(question, response)">
+                  <span></span>{{ response.text }}
+                </label>
+              </div>
+              <p class="qz-hint" v-html="getResponseHint(response)"></p>
+            </li>
+          </ul>
+          <button class="qz-button qz-button-confirm" type="button"
+            v-show="(question.confirmed === false) && (getQuestionType(question) === 'checkbox')"
+            v-on:click="confirmCheckboxResponse(question)">Ок</button>
+          <button class="qz-button qz-button-next" type="button"
+            v-on:click="next"
+            v-show="question.confirmed === true">Дальше</button>
         </div>
-
-        <div v-if="questionIndex === questionsLength + 1">
-
-            <div class="qz-result">
-                <div class="qz-cover" v-preload-bg="score.image">
-                    <h2 class="qz-score">{{ score.correct }} / {{ score.total }}</h2>
-                    <h1>{{ score.title }}</h1>
-                    <p>{{ score.text }}</p>
-                </div>
-            </div>
-
-            <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
-            <share v-bind:requires="'facebook, vkontakte, twitter, odnoklassniki'"
-                   v-bind:url="quiz.url"
-                   v-bind:picture="score.shareImage"
-                   v-bind:title="score.title"
-                   v-bind:description="score.text">
-            </share>
-        </div>
+      </div>
     </div>
+
+    <div v-if="questionIndex === questionsLength + 1">
+      <div class="qz-result">
+        <div class="qz-cover" v-preload-bg="score.image">
+          <h2 class="qz-score">{{ score.correct }} / {{ score.total }}</h2>
+          <h1>{{ score.title }}</h1>
+          <p>{{ score.text }}</p>
+        </div>
+      </div>
+
+      <p v-html="score.article"></p>
+
+      <button class="qz-button qz-button-restart" type="button" v-on:click="restart">Пройти заново</button>
+      <share v-bind:requires="'facebook, vkontakte, twitter, odnoklassniki'"
+        v-bind:url="quiz.url"
+        v-bind:picture="score.shareImage"
+        v-bind:title="score.title"
+        v-bind:description="score.text">
+      </share>
+    </div>
+  </div>
 </template>
 
 <script lang="babel">
-  /* Config example
-  {
-    title: 'Quiz title',
-    url: 'some.host',
-    introtext: 'Some intro text...',
-    article: 'Some sample article content with <b>Html inside</b>',
-    image: 'http://lorempixel.com/800/600/business',
-
-    questions: [
-      {
-        title: "Question 1",
-        text: "Question 1 text",
-        image: 'http://lorempixel.com/800/600/business',
-
-        responses: [
-          { text: 'Right.',
-            correct: true,
-            hint: {
-              'missing': 'How did yoy forget!',
-              'correct': 'Wow, you are awesome!'
-            }
-          },
-          {text: 'Not even close...',
-            hint: {
-              'error': 'You gotta be kidding me!',
-            }
-          },
-        ]
-      }, {
-        title: "Question 2",
-        text: "Question 2 text",
-        image: 'http://lorempixel.com/800/600/business',
-
-        responses: [
-          {text: 'Right.', correct: true},
-          {text: 'Wrong one'},
-          {text: 'Right also!', correct: true},
-          {text: 'Naa-a'},
-        ]
-      }, {
-        title: "Question 3",
-        text: "Question 3 text",
-        image: 'http://lorempixel.com/800/600/business',
-
-        responses: [
-          {text: 'Wrong, too bad.'},
-          {text: 'Right!', correct: true},
-        ]
-      },
-    ],
-    results : [
-      {
-        entry: 0,
-        title: 'Your score is very low',
-        text: 'Try another day',
-        image: 'http://lorempixel.com/800/600/business',
-        shareImage: 'http://lorempixel.com/800/600/business'
-      },
-      {
-        entry: 2,
-        title: 'Your score is ok',
-        text: 'Nothing to worry about',
-        image: 'http://lorempixel.com/800/600/business',
-        shareImage: 'http://lorempixel.com/800/600/business'},
-      {
-        entry: 3,
-        title: 'Your score is perfect',
-        text: 'P-E-R-F-E-C-T',
-        image: 'http://lorempixel.com/800/600/business',
-        shareImage: 'http://lorempixel.com/800/600/business'
-      }
-    ]
-  }*/
-
   import _ from 'underscore';
   import $ from 'utils/dom.utility';
 
   export default {
-    data () {
+    data() {
       let data = JSON.parse(this.contents);
 
       _.each(data.questions, function (question) {
@@ -178,27 +103,27 @@
         quiz: data,
         questionIndex: 0,
         questionsLength: data.questions.length
-      }
+      };
     },
 
     directives: {
       'preload-bg': {
-        inserted (el, args) {
+        inserted(el, args) {
           let img = new Image();
           img.src = args.value;
           $.addClass(el, 'loading');
 
-          img.onload = function() {
-            el.style.backgroundImage = "url('" + args.value + "')";
+          img.onload = function () {
+            el.style.backgroundImage = 'url(\'' + args.value + '\')';
             $.removeClass(el, 'loading');
             $.addClass(el, 'loaded');
-          }.bind(this);
+          };
         }
       }
     },
 
     components: {
-      'share' : require('../social/buttons-share.vue')
+      'share': require('../social/buttons-share.vue')
     },
 
     props: {
@@ -217,19 +142,16 @@
           return (scoreData.correct >= result.entry);
         });
 
-        console.log(resultIndex);
-
-        //if (resultIndex !== 0 && resultIndex !== this.quiz.results.length - 1 && scoreData.correct !== this.quiz.results[resultIndex].entry) resultIndex -= 1;
         let result = this.quiz.results[resultIndex];
-
         return {
           title: result.title,
           text: result.text,
           image: result.image,
           shareImage: result.shareImage,
+          article: result.article,
           correct: scoreData.correct,
-          total: scoreData.total,
-        }
+          total: scoreData.total
+        };
       }
     },
 
@@ -266,8 +188,9 @@
 
         if (this.getQuestionType(question) === 'radio') {
           response.checked = true;
+          let self = this;
           this.confirmQuestion(question, function (question) {
-            this.checkResponses(question);
+            self.checkResponses(question);
           });
         } else {
           response.checked = !response.checked;
@@ -278,7 +201,7 @@
         question.confirmed = status;
       },
 
-      checkResponses : function (question) {
+      checkResponses: function (question) {
         const correctStatus = 'correct';
         const missingStatus = 'missing';
         const errorStatus = 'error';
@@ -315,8 +238,9 @@
       },
 
       confirmCheckboxResponse: function (question) {
+        let self = this;
         this.confirmQuestion(question, function (question) {
-          this.checkResponses(question);
+          self.checkResponses(question);
         });
       },
 
@@ -339,7 +263,6 @@
 
           if (correct > 1) return multiType;
           return defaultType;
-
         } else {
           return question.type;
         }
@@ -353,7 +276,7 @@
         return '';
       },
 
-      getQuizScore : function () {
+      getQuizScore: function () {
         let totalCorrect = 0;
 
         _.each(this.quiz.questions, function (question) {
