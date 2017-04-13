@@ -89,7 +89,7 @@
         if (_.isFunction(links[button])) {
           let generator = links[button](this.getUrl());
           let args = {};
-          let self = this;
+          let self = this._props;
           _.each(generator.schema, function (param) {
             if (self.hasOwnProperty(param)) {
               args[param] = self[param];
